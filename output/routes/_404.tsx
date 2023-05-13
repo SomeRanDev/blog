@@ -1,1 +1,0 @@
-import{jsx as o,jsxs as e}from"/-/esm.sh/v120/react@18.2.0/jsx-runtime";import{Link as r}from"/-/deno.land/x/aleph@1.0.0-beta.43/framework/react/mod.ts";function n(){return e("div",{className:"screen e404",children:[o("h2",{children:"Ooooooops, nothing here!"}),o("p",{children:o(r,{to:"/",children:"Go back to the homepage"})})]})}export{n as default};
