@@ -1,14 +1,26 @@
 # blog
+
 My website.
 
-Notes to self:
+Currently available at:
+https://robbor.deno.dev
+
+## Test/Build
+
+Start the server in `development` mode
+
 ```
-▲ Aleph.js is ready to go!
+deno task dev
+```
 
-$ deno task dev    # Start the server in `development` mode
-$ deno task start  # Start the server in `production` mode
-$ deno task build  # Build & Optimize the app (bundling, SSG, etc.)
+Start the server in `production` mode
 
-Docs: https://alephjs.org/docs
-Bugs: https://github.com/alephjs/aleph.js/issues
+```
+deno task start
+```
+
+Build & Optimize the app (bundling, SSG, etc.)
+
+```
+deno task build
 ```
