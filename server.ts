@@ -18,6 +18,6 @@ serve({
       rehypePlugins: [rehypeHighlight, rehypeSlug],
       providerImportSource: "@mdx-js/react",
     }),
-    react({ ssr: true }),
+    react({ ssr: false }),
   ],
 });
