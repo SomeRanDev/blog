@@ -1,44 +1,39 @@
 import { Head, Link } from "aleph/react";
 
+import WalkingSprite from "../components/WalkingSprite.tsx";
+import RandomQuote from "../components/RandomQuote.tsx";
+
 const externalLinks = [
-  ["Get Started", "https://alephjs.org/docs/get-started"],
-  ["Docs", "https://alephjs.org/docs"],
-  ["Github", "https://github.com/alephjs/aleph.js"],
+  ["Github", "https://github.com/RobertBorghese"],
+  ["Twitter", "https://twitter.com/SumRndmDde"],
+  ["TikTok", "https://tiktok.com/@SomeRanDev"],
+  ["YouTube", "https://youtube.com/@SomeRanDev"],
+  ["Blog", "/"],
 ];
 
 export default function Index() {
   return (
     <div className="screen index">
       <Head>
-        <title>Aleph.js</title>
-        <meta name="description" content="The Fullstack Framework in Deno." />
+        <title>RoBBoR's Blog</title>
+        <meta name="description" content="RoBBoR's blog." />
       </Head>
       <p className="logo">
-        <img src="./assets/logo.svg" width="75" height="75" title="Aleph.js" />
+        <WalkingSprite />
       </p>
-      <h1>
-        The Fullstack Framework in Deno.
-      </h1>
-      <p>
-        <strong>Aleph.js</strong> gives you the best developer experience for building web applications<br />{" "}
-        with modern toolings.
-      </p>
+      <h1>RoBBoR's Blog</h1>
+      <br />
+      <RandomQuote />
+      <br />
       <div className="external-links">
         {externalLinks.map(([text, href]) => (
-          <a
-            href={href}
-            target="_blank"
-            key={href}
-          >
+          <a href={href} target="_blank" key={href}>
             {text}
           </a>
         ))}
       </div>
       <nav>
-        <Link
-          role="button"
-          to="/docs"
-        >
+        <Link role="button" to="/docs">
           Documentations
         </Link>
       </nav>
