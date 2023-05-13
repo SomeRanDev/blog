@@ -1,7 +1,5 @@
 import { Link } from "aleph/react";
 
-import "../style/tooltip.css";
-
 export default function Header() {
   return (
     <header>
