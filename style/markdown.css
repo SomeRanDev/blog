@@ -73,11 +73,11 @@
   }
 
   & h4 {
-    margin-top: 2.0rem;
+    margin-top: 2rem;
     font-size: 1.27rem;
   }
 
-  &>p {
+  & > p {
     margin-top: 1.2rem;
     line-height: 1.5;
   }
@@ -92,7 +92,7 @@
     position: absolute;
     margin-left: -1rem;
     color: #aaa;
-    content: '-';
+    content: "-";
   }
 
   & ol {
@@ -102,7 +102,7 @@
 
   & ul,
   & ol {
-    & li+li {
+    & li + li {
       margin-top: 0.5rem;
     }
 
@@ -124,14 +124,14 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 
-    &>code {
+    & > code {
       display: block;
       padding: 1rem 1.2rem;
       font-size: 0.9rem;
     }
   }
 
-  & :not(pre)>code {
+  & :not(pre) > code {
     display: inline;
     white-space: pre-wrap;
     font-size: 90%;
@@ -140,7 +140,7 @@
     &::before,
     &::after {
       color: currentColor;
-      content: '`'
+      content: "`";
     }
   }
 
