@@ -97,7 +97,7 @@ export default class RandomQuote extends Component {
         <p style={{ maxWidth: "min(600px, 90vw)" }}>
           {this.quotes[this.state.quote]}
         </p>
-        <p style={{ fontSize: "13px", color: "#666", paddingTop: "12px" }}>
+        <p style={{ fontSize: "13px", color: "#666", paddingTop: "8px" }}>
           {"(" + quoteProgress + ")"}
         </p>
       </>
