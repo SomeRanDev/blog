@@ -31,6 +31,13 @@ code {
   font-size: 16px;
 }
 
+.fakecode {
+  font-family: "FiraCode", source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
+  font-size: 14px;
+  background-color: #ddd;
+  border-radius: 6px;
+  padding: 12px;
 }
 
 header {

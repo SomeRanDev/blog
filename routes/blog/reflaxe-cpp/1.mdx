@@ -11,22 +11,237 @@ import { Head } from "aleph/react";
 
 # Reflaxe/C++ Devlog #1 - CallStack
 
-It wasn't until I started delving into the dreaded `Dynamic` type that I realized Reflaxe/C++ lacked a proper error reporting system. Throwing an error  doesn't even print a message in C++; it just hangs for like a minute then exits with a random 12 digit exit code. So before I continued with implementing a runtime type system with Haxe's `Dynamic`, I needed to make runtime errors look nicer and track easier for my own sanity.
+It wasn't until I started delving into the dreaded `Dynamic` type
+that I realized Reflaxe/C++ lacked a proper error reporting system.
+Throwing an error doesn't even print a message in C++; it just hangs
+for like a minute then exits with a random 12 digit exit code. So before
+I continued with implementing a runtime type system with Haxe's `Dynamic`,
+I needed to make runtime errors look nicer and track easier for my own sanity.
 
-The first part was easy. Instead of compiling Haxe throws as native C++ throws, I could instead print whatever the Error object was to `std::err` (with its Haxe position), run `exit(666)`, and call it a day. Simply add a define to decide whether the user wants native throws or these simulated ones and it's no biggie... except for the fact that wouldn't be compatible with try/catch. Ooof.
+The first part was easy. Instead of compiling Haxe throws as native C++
+throws, I could instead print whatever the Error object was to `std::err`
+(with its Haxe position), run `exit(666)`, and call it a day. Simply add a
+define to decide whether the user wants native `throw`s or these simulated
+ones and it's no biggie... except for the fact that wouldn't be compatible
+with try/catch. Ooof.
 
-It would be nice to only print or display error info on uncaught throws, make it feel like Hashlink with its pretty runtime errors display... but that's just not fesible when generating C++ source code. Oh well, native throws stay for now, I guess. I'll just wrap everything with try { ... } while testing.
+```cpp
+// native throw
+throw "my runtime error";
+
+// stderr throw
+std::err << "Main.hx:32: my runtime error" << std::endl;
+exit(666);
+```
+
+It would be nice to ONLY print/display errors on uncaught throws...
+achieve something similar to Hashlink's nice error popup system... but
+that's just not feasible when generating C++ source code. Oh well, native
+`throw`s stay for now, I guess. I'll just wrap everything with try \{ ... \}
+while testing.
+
+## The Call Stack Problem
+
+Speaking of errors, taking a look into it made me realize the `haxe.Exception`
+class wasn't fully implemented for Reflaxe/C++. It had a bare-bones version made
+to help things run riiiiight at the start of this project's development, and now
+was the perfect time to finish it. It was all fine and dandy except for `stack`.
+A field which provided the `haxe.CallStack` object for the error.
+
+For those that don't know, the [haxe.CallStack](https://api.haxe.org/haxe/CallStack.html)
+class is a wonderful debugging class that provides the entire list of calls
+made up to that point:
+
+```haxe
+trace(haxe.CallStack.toString(haxe.CallStack.callStack()));
+```
+
+Similar to the `Exception` class, `haxe.CallStack` had been given a very early
+implementation to make things work, and then it was completely forgotten about.
+But _unlike_ `Exception`, it was not going to be as fun to complete.
+
+> Ugh. If only C++ had a built in call stack like every other target.
+
+The funny part is, it actually does. With the release of C++23, a new class was added:
+[std::basic_stacktrace](https://en.cppreference.com/w/cpp/utility/basic_stacktrace).
+Sooooo... I guess time to make C++23 the minimum required version!!
+
+Haha, I wish. Making C++17 the minimum version killed me, going any higher
+and this project would be less compatible then the original Haxe/C++ target. X_X
+
+So... time for option 2.
+
+## Making a Call Stack
+
+When you really think about it though, tracking function calls isn't that hard.
+
+Make a class that adds itself to a global stack when constructed,
+then removes itself using the destructor. When generating the C++,
+create an instance of that class at the start of every function. Pass
+it the name of the class + function it's being used in and BOOM,
+you have a global stack you can access at anywhere!
+
+```cpp
+struct StackTracer {
+  static vector<StackTracer*> Stack;
+
+  StackTracer(string cls, string method) {
+    // store cls + method
+    Stack.push_back(this);
+  }
+
+  ~StackTracer() { Stack.pop_back(); }
+}
+
+// ---
+
+// some function
+void doSomething() {
+  StackTracer st("Main", "doSomething"); // will destroy when func done
+  // do stuff
+}
+```
+
+## Line tracking
+
+However, I soon realized that call stacks do not just require a
+list of functions, but the exact line they're called from as well.
+
+Taking a peak into [hxcpp](https://github.com/HaxeFoundation/hxcpp/blob/c3e5ab85b0c19688f7494ae44909ed4bfc63bdb7/include/hx/StackContext.h#LL170C72-L170C72),
+it appears their solution is to do what I've done so far, but also update
+the function's stack tracing variable every expression. THAT'S what all those
+ugly `HXLINE` do (guess it was kinda obvious).
+
+It wouldn't be too hard to implement that as well... and it's not like
+I have much of a choice, but wooooow it destroys the beautiful Reflaxe/C++
+code I had so much pride in.
+
+But in the end, I implemented it. Since Reflaxe/C++ does not use any dependencies,
+the code is incorporated into the `NativeStackTrace` class. A wonderful class made
+specifically for target-dependent implementations of the call stack.
+
+You can check it out [here](https://github.com/RobertBorghese/reflaxe.CPP/blob/main/std/cxx/_std/haxe/NativeStackTrace.hx)!
 
 <hr />
 
-Speaking of Errors, taking a look into it made me realize the `haxe.Exception` class wasn't fully implemented for Reflaxe/C++. It had a barebones version made to help things run riiiiight at the start of this project's development, and now was the perfect time to finish it. It was all fine and dandy except for `stack`. A field which provided the `haxe.CallStack` object for the error.
+Alas... Reflaxe/C++'s "Hello World" output now looks like this:
 
-Similar to the `Exception` class, `haxe.CallStack` had been given a very early implementation to make things work, and then it was completely forgotten about. And implementing it was not going to be as fun.
+```cpp
+void _Main::Main_Fields_::main() {
+  HCXX_STACK_METHOD("Main.hx", 1, 0, "_Main::Main_Fields_", "main")
 
-Ugh. C++ doesn't have the convenience of every other Haxe target's builtin CallStack capabilities. Well, not quite. It recently DID get it with the release of C++23 and its new [std::basic_stacktrace](https://en.cppreference.com/w/cpp/utility/basic_stacktrace). If only it was the year 2030, then I could feel a bit more comfy making that the minimum supported version of C++. But nah, Reflaxe/C++ already requires C++17, which is two versions passed what I originally wanted, so jumping two more is not an option.
+  HCXX_LINE(1)
+  std::cout << "Main.hx:2: Hello world!" << std::endl;
+}
+```
 
-So guess I have no choice but to do it myself.
+## The Haxe Target Call Stack Experience
 
-<hr />
+What was especially interesting was discovering how inconsistent call stacks are
+for each target. While Haxe provides an enum for structuring the call stack in
+the form of [haxe.StackItem](https://api.haxe.org/haxe/StackItem.html), the
+way each case is used is different for each target.
 
-When you really think about it though, tracking function calls isn't that hard. When generating the C++, create a variable at the start of every function. This variable is of a class that adds itself to a global stack when constructed, then removes itself using the destructor. Pass it the name of the class + function it's being used in and BOOM, you can access the function call stack at any time.
+Going to the [Haxe Playground](https://try.haxe.org/#DD7c3724) and clicking between
+each target, you can see how the call stack differs drastically:
+
+```haxe
+class Test {
+  static function main() {
+    trace(haxe.CallStack.toString(haxe.CallStack.callStack()));
+  }
+}
+```
+
+<table style={{ padding: "12px", marginTop: "30px" }}>
+  <tr>
+    <td style={{ paddingRight: "20px" }}>JavaScript</td>
+    <td>
+      <p className="fakecode">
+        Test.hx:3: Called from (unknown).main
+        (https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line 92
+        column 67) Called from
+        https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line 405
+        column 6 Called from
+        https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line 406
+        column 3
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td>HashLink</td>
+    <td>
+      <p className="fakecode">
+        Test.hx:3: Called from haxe._CallStack.$CallStack_Impl_.callStack
+        (/home/haxer/haxe/versions/4.3.1/std/haxe/CallStack.hx line 52) Called
+        from $Test.main (Test.hx line 3)
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td>Eval</td>
+    <td>
+      <p className="fakecode">
+        Test.hx:3: Called from Test.main (Test.hx line 3 column 35)
+      </p>
+    </td>
+  </tr>
+</table>
+
+In fact, most targets only appear to use `Method` and `FilePos` from
+`haxe.StackItem`. The rest are for niche cases with certain targets.
+
+This was a nice change of pace from the usual, restrictive nature of
+the Haxe API, as this would allow me to make sure the Reflaxe/C++
+call stack was as nice as possible.
+
+I was especially worried about the way local functions would be
+printed, but came up with a nice solution of using `Method` for
+everything (as opposed to the `LocalFunction(i: Int)` case).
+From there, I tracked and used the actual names associated with
+the local functions.
+
+So for example, this is how Reflaxe/C++'s call stack looks:
+
+```haxe
+class Test {
+  static function main() {
+    function a() {
+      final b = () ->
+        trace(haxe.CallStack.toString(haxe.CallStack.callStack()));
+      b();
+    }
+    a();
+  }
+}
+```
+
+```text
+Called from Test.main.a.b (Test.hx line 5 column 3)
+Called from Test.main.a (Test.hx line 4 column 2)
+Called from Test.main (Test.hx line 3 column 1)
+```
+
+## Opt In Option
+
+In the end, I decided to disable call stack features by default. Reflaxe/C++
+is a clean code generator first. Only when a certain define is enabled (`-D cxx_callstack`)
+does `haxe.CallStack.callStack()` return the stack. If it's not enabled, an
+empty array is returned and a message is printed:
+
+```text
+Call stack features must be enabled using -D cxx_callstack
+```
+
+Hopefully this intrinsically teaches users the benefits of keeping the
+call stack enabled vs disabled. And more importantly, allow me to
+advertise Reflaxe/C++ as the prettiest C++ output in all the land!
+
+## What's Left To Be done
+
+I didn't bring up multi-threading support because... I didn't do anything
+about it. In the future, I'll need to keep separate call stacks for each
+thread. But threads have not been implemented yet, so that's a problem
+for future me!
+
+Anyway, that's about it for this log. May you visit again.
