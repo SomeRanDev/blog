@@ -10,12 +10,17 @@ import remarkGFM from "https://esm.sh/v113/remark-gfm@3.0.1";
 import rehypeHighlight from "https://esm.sh/v113/rehype-highlight@5.0.2";
 import rehypeSlug from "https://esm.sh/v113/rehype-slug@5.0.1";
 
+import haxeLang from "https://raw.githubusercontent.com/highlightjs/highlight.js/main/src/languages/haxe.js";
+
 serve({
   plugins: [
     denoDeploy({ modules }),
     mdx({
       remarkPlugins: [remarkFrontmatter, remarkGFM],
-      rehypePlugins: [rehypeHighlight, rehypeSlug],
+      rehypePlugins: [
+        [rehypeHighlight, { languages: { haxe: haxeLang } }],
+        rehypeSlug,
+      ],
       providerImportSource: "@mdx-js/react",
     }),
     react({ ssr: false }),
