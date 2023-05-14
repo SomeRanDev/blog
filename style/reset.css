@@ -47,8 +47,8 @@ body {
 
 hr {
   height: 0; /* 1 */
-  color: inherit; /* 2 */
-  border-top-width: 1px; /* 3 */
+  color: #bbb; /* 2 */
+  border-top-width: 2px; /* 3 */
 }
 
 /*

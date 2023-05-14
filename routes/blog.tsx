@@ -81,6 +81,7 @@ export default function Blog(props: PropsWithChildren) {
           <div className="markdown-body">
             <MDXProvider components={components}>{props.children}</MDXProvider>
           </div>
+          <hr />
           <Comments />
         </div>
       </div>
