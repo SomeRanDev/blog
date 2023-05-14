@@ -46,7 +46,7 @@ body {
 */
 
 hr {
-  height: 0; /* 1 */
+  /*height: 0; /* 1 */
   color: #bbb; /* 2 */
   border-top-width: 2px; /* 3 */
 }
@@ -270,7 +270,6 @@ h3,
 h4,
 h5,
 h6,
-hr,
 figure,
 p,
 pre {
