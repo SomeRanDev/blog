@@ -15,7 +15,7 @@ export default class RandomQuote extends Component {
     `"What life choices led you to this point? You've made some weird ones if you ended up here." - me`,
     `"Quadrilateral is just another word for square." -me`,
     `"Don't let the Ogopogo win!!" -me (during my war against Ogopogo)`,
-    `"Don't let RoBBoR win!!" -Ogopogo (during Ogopogo's war against me)`,
+    `"Don't let SomeRanDev win!!" -Ogopogo (during Ogopogo's war against me)`,
     `"You can put your cold hands in your shirt if they get too cold." -me`,
     `"I want to die... err yee haw!!!" -me (while having diarrhea)`,
     `"I really should just get each room their own couch." -me (out of breath; arm are super tired)`,
