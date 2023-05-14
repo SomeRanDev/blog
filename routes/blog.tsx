@@ -77,8 +77,11 @@ export default function Blog(props: PropsWithChildren) {
             <nav>{genNav(nav)}</nav>
           </aside>
         </div>
-        <div className="markdown-body">
-          <MDXProvider components={components}>{props.children}</MDXProvider>
+        <div style={{ flexDirection: "column" }}>
+          <div className="markdown-body">
+            <MDXProvider components={components}>{props.children}</MDXProvider>
+          </div>
+          <Comments />
         </div>
       </div>
     </>
