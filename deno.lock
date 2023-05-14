@@ -413,6 +413,7 @@
     "https://esm.sh/v120/react-dom@18.2.0/server": "71f75b51394c84ac913e8cb6a077e5ca83ae234ce55202b908cfe4b94d2c299a",
     "https://esm.sh/v120/react@18.2.0": "742d8246041966ba1137ec8c60888c35882a9d2478bce63583875f86c1e3687c",
     "https://esm.sh/v120/react@18.2.0/jsx-runtime": "8e5e22ae56773ef989a95772b9b9f6d4e5d7891f2d20875c25e51015df018f7c",
-    "https://esm.sh/v120/scheduler@0.23.0/deno/scheduler.mjs": "585bd99e523275a2447f9d1c29f36b43be0a20123e7c7915f6f4d5405ecc2884"
+    "https://esm.sh/v120/scheduler@0.23.0/deno/scheduler.mjs": "585bd99e523275a2447f9d1c29f36b43be0a20123e7c7915f6f4d5405ecc2884",
+    "https://raw.githubusercontent.com/highlightjs/highlight.js/main/src/languages/haxe.js": "b936bcfc48d9b4bc71377d0ded6fdb4aee4f9de2ab98078af08f6db34188f4d8"
   }
 }
