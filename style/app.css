@@ -258,13 +258,35 @@ header a:hover {
     margin-top: 0.5rem;
     list-style: disc inside;
 
+    color: #888;
+
+    &::marker {
+      position: absolute;
+      color: #aaa;
+      content: "|";
+    }
+
     & a {
-      color: #454545;
+      color: #888;
+      padding-left: 5px;
 
       &.active {
         color: #000;
         font-weight: 500;
+        padding-left: 15px;
       }
     }
+  }
+
+  & ul ul li {
+    &::marker {
+      position: absolute;
+      color: #aaa;
+      content: attr(data-num);
+    }
+  }
+
+  & ul {
+    padding-left: 10px;
   }
 }
