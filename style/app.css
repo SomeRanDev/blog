@@ -141,8 +141,11 @@ header a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 15px;
   margin-top: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .index .external-links a {
