@@ -1,8 +1,10 @@
 import { PropsWithChildren } from "react";
 import { MDXProvider } from "@mdx-js/react";
-import { Head, NavLink } from "aleph/react";
+import { Head, NavLink, Link } from "aleph/react";
 import { components } from "../components/Heading.tsx";
+import Comments from "../components/Comments.tsx";
 
+// Navagation
 const nav = [
   "baselist",
   ["About", "/blog"],
@@ -11,6 +13,24 @@ const nav = [
   ["reflaxecpp", ["CallStack", "/blog/reflaxe-cpp/1", "1"]],
 ];
 
+// Calculate order of blogs
+const order = [];
+
+{
+  function _makeOrder(item) {
+    if (Array.isArray(item) && item.length >= 2) {
+      if (typeof item[1] === "string") {
+        order.push(item[1]);
+      } else if (Array.isArray(item[1])) {
+        item.slice(1).map(_makeOrder);
+      }
+    }
+  }
+
+  nav.map(_makeOrder);
+}
+
+// Helper for toggling a class on an element
 function toggleClass(element, clsName) {
   if (element.classList.contains(clsName)) {
     element.classList.remove(clsName);
@@ -19,12 +39,14 @@ function toggleClass(element, clsName) {
   }
 }
 
+// On sidebar toggled, add or remove "hidden"
 function toggleSidebar() {
   toggleClass(document.getElementById("sidebar"), "hidden");
   toggleClass(document.getElementsByClassName("asideHold")[0], "hidden");
   toggleClass(document.getElementsByClassName("asideButton")[0], "hidden");
 }
 
+// Construct the navbar html
 function genNav(item, index) {
   if (Array.isArray(item) && item.length >= 2) {
     if (typeof item[1] === "string") {
@@ -44,8 +66,26 @@ function genNav(item, index) {
   throw "Impossible";
 }
 
+// <Blog />
 export default function Blog(props: PropsWithChildren) {
   const hClass = window.innerWidth < 720 ? "hidden" : "";
+
+  const pathname = document.location.pathname;
+  const index = order.indexOf(pathname);
+
+  let next = null;
+  let previous = null;
+  if (index >= 0) {
+    const nextIndex = index + 1;
+    const prevIndex = index - 1;
+    if (nextIndex >= 0 && nextIndex < order.length) {
+      next = order[nextIndex];
+    }
+    if (prevIndex >= 0 && prevIndex < order.length) {
+      previous = order[prevIndex];
+    }
+  }
+
   return (
     <>
       <Head>
@@ -82,6 +122,26 @@ export default function Blog(props: PropsWithChildren) {
             <MDXProvider components={components}>{props.children}</MDXProvider>
           </div>
           <hr />
+          <div className="index" style={{ flexDirection: "row" }}>
+            <nav>
+              {previous !== null ? (
+                <Link role="button" to={previous}>
+                  {"< Previous"}
+                </Link>
+              ) : (
+                <></>
+              )}
+              <span style={{ margin: "auto" }}></span>
+              {next !== null ? (
+                <Link role="button" to={next}>
+                  {"Next >"}
+                </Link>
+              ) : (
+                <></>
+              )}
+            </nav>
+          </div>
+          <br />
           <Comments />
         </div>
       </div>
