@@ -23,6 +23,6 @@ serve({
       ],
       providerImportSource: "@mdx-js/react",
     }),
-    react({ ssr: true }),
+    react({ ssr: false }),
   ],
 });
