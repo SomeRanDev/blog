@@ -94,10 +94,10 @@ export default class RandomQuote extends Component {
         : "All quotes discovered!";
     return (
       <>
-        <p style={{ maxWidth: "min(600px, 90vw)" }}>
+        <p style={{ maxWidth: "min(600px, 90vw)", fontSize: "24px" }}>
           {this.quotes[this.state.quote]}
         </p>
-        <p style={{ fontSize: "13px", color: "#666", paddingTop: "8px" }}>
+        <p style={{ fontSize: "16px", color: "#666", paddingTop: "8px" }}>
           {"(" + quoteProgress + ")"}
         </p>
       </>
