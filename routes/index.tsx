@@ -22,7 +22,7 @@ export default function Index() {
         <WalkingSprite />
       </p>
       <h1>SomeRanDev's Blog</h1>
-      <p style={{ fontSize: "13px", color: "#666", paddingTop: "4px" }}>
+      <p style={{ fontSize: "16px", color: "#666", paddingTop: "0px" }}>
         by Robert Borghese
       </p>
       <br />
