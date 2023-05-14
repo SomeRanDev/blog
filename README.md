@@ -3,7 +3,7 @@
 My website.
 
 Currently available at:
-https://robbor.deno.dev
+https://srd.deno.dev
 
 ## Test/Build
 
