@@ -202,17 +202,51 @@ header a:hover {
   width: 90%;
   max-width: 1024px;
   margin: 0 auto;
-  padding: 48px 0;
+  padding: 0px 0;
   display: flex;
   gap: 30px;
 }
 
-.docs > aside {
-  width: 240px;
+.markdown-body {
+  padding: 48px 0;
+}
+
+.docs > .asideHold {
+  width: min(220px, 40%);
+  min-width: 140px;
   flex-shrink: 0;
 
-  @media only screen and (max-width: 720px) {
-    display: none;
+  flex-direction: column;
+
+  transition: width 0.2s, min-width 0.2s;
+  transform-origin: center left;
+}
+
+.docs > .asideHold.hidden {
+  width: 40px;
+  min-width: 40px;
+  flex-shrink: 0;
+}
+
+.docs > .asideHold > .asideButton {
+  float: right;
+  padding-bottom: 8px;
+
+  transition: transform 0.5s;
+}
+
+.docs > .asideHold > .asideButton.hidden {
+  transform: rotateY(180deg);
+}
+
+.docs > .asideHold > aside {
+  transition: width 0.2s, min-width 0.2s, transform 0.2s;
+  transform-origin: center left;
+
+  &.hidden {
+    width: 0;
+    min-width: 0;
+    transform: scaleX(0);
   }
 
   & .search {

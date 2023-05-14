@@ -11,6 +11,20 @@ const nav = [
   ["reflaxecpp", ["CallStack", "/blog/reflaxe-cpp/1", "1"]],
 ];
 
+function toggleClass(element, clsName) {
+  if (element.classList.contains(clsName)) {
+    element.classList.remove(clsName);
+  } else {
+    element.classList.add(clsName);
+  }
+}
+
+function toggleSidebar() {
+  toggleClass(document.getElementById("sidebar"), "hidden");
+  toggleClass(document.getElementsByClassName("asideHold")[0], "hidden");
+  toggleClass(document.getElementsByClassName("asideButton")[0], "hidden");
+}
+
 function genNav(item, index) {
   if (Array.isArray(item) && item.length >= 2) {
     if (typeof item[1] === "string") {
@@ -31,18 +45,38 @@ function genNav(item, index) {
 }
 
 export default function Blog(props: PropsWithChildren) {
+  const hClass = window.innerWidth < 720 ? "hidden" : "";
   return (
     <>
       <Head>
         <meta name="description" content="Documentation powered by MDX" />
       </Head>
       <div className="docs">
-        <aside>
-          <div className="search">
-            <input placeholder="Search..." />
-          </div>
-          <nav>{genNav(nav)}</nav>
-        </aside>
+        <div className={"asideHold " + hClass}>
+          <button className={"asideButton " + hClass} onClick={toggleSidebar}>
+            <svg
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 7L9 12L14 17"
+                stroke="#000000"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <aside id="sidebar" className={hClass}>
+            <div className="search">
+              <input placeholder="Search..." />
+            </div>
+            <nav>{genNav(nav)}</nav>
+          </aside>
+        </div>
         <div className="markdown-body">
           <MDXProvider components={components}>{props.children}</MDXProvider>
         </div>
