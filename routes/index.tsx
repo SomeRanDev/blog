@@ -21,7 +21,10 @@ export default function Index() {
       <p className="logo">
         <WalkingSprite />
       </p>
-      <h1>RoBBoR's Blog</h1>
+      <h1>SomeRanDev's Blog</h1>
+      <p style={{ fontSize: "13px", color: "#666", paddingTop: "4px" }}>
+        by Robert Borghese
+      </p>
       <br />
       <RandomQuote />
       <br />
