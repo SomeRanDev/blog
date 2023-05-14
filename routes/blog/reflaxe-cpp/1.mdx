@@ -1,5 +1,5 @@
 ---
-title: "Reflaxe - Devlog 1"
+title: "Reflaxe/C++ - Devlog 1"
 author: Robert Borghese
 ---
 
@@ -9,4 +9,24 @@ import { Head } from "aleph/react";
   <title>Reflaxe Devlog 1</title>
 </Head>
 
-# Reflaxe Devlog #1 - CallStack
+# Reflaxe/C++ Devlog #1 - CallStack
+
+It wasn't until I started delving into the dreaded `Dynamic` type that I realized Reflaxe/C++ lacked a proper error reporting system. Throwing an error  doesn't even print a message in C++; it just hangs for like a minute then exits with a random 12 digit exit code. So before I continued with implementing a runtime type system with Haxe's `Dynamic`, I needed to make runtime errors look nicer and track easier for my own sanity.
+
+The first part was easy. Instead of compiling Haxe throws as native C++ throws, I could instead print whatever the Error object was to `std::err` (with its Haxe position), run `exit(666)`, and call it a day. Simply add a define to decide whether the user wants native throws or these simulated ones and it's no biggie... except for the fact that wouldn't be compatible with try/catch. Ooof.
+
+It would be nice to only print or display error info on uncaught throws, make it feel like Hashlink with its pretty runtime errors display... but that's just not fesible when generating C++ source code. Oh well, native throws stay for now, I guess. I'll just wrap everything with try { ... } while testing.
+
+<hr />
+
+Speaking of Errors, taking a look into it made me realize the `haxe.Exception` class wasn't fully implemented for Reflaxe/C++. It had a barebones version made to help things run riiiiight at the start of this project's development, and now was the perfect time to finish it. It was all fine and dandy except for `stack`. A field which provided the `haxe.CallStack` object for the error.
+
+Similar to the `Exception` class, `haxe.CallStack` had been given a very early implementation to make things work, and then it was completely forgotten about. And implementing it was not going to be as fun.
+
+Ugh. C++ doesn't have the convenience of every other Haxe target's builtin CallStack capabilities. Well, not quite. It recently DID get it with the release of C++23 and its new [std::basic_stacktrace](https://en.cppreference.com/w/cpp/utility/basic_stacktrace). If only it was the year 2030, then I could feel a bit more comfy making that the minimum supported version of C++. But nah, Reflaxe/C++ already requires C++17, which is two versions passed what I originally wanted, so jumping two more is not an option.
+
+So guess I have no choice but to do it myself.
+
+<hr />
+
+When you really think about it though, tracking function calls isn't that hard. When generating the C++, create a variable at the start of every function. This variable is of a class that adds itself to a global stack when constructed, then removes itself using the destructor. Pass it the name of the class + function it's being used in and BOOM, you can access the function call stack at any time.
