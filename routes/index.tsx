@@ -26,7 +26,9 @@ export default function Index() {
         by Robert Borghese
       </p>
       <br />
+      <br />
       <RandomQuote />
+      <br />
       <br />
       <div className="external-links">
         {externalLinks.map(([text, href]) => (
@@ -36,8 +38,8 @@ export default function Index() {
         ))}
       </div>
       <nav>
-        <Link role="button" to="/docs">
-          Documentations
+        <Link role="button" to="/blog">
+          Read da Blog!
         </Link>
       </nav>
     </div>
