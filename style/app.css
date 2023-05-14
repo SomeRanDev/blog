@@ -4,8 +4,8 @@
 @import url("./tooltip.css");
 
 @font-face {
-  font-family: "EightBitDragon";
-  src: local("EightBitDragon"), url(../assets/fonts/EightBitDragon-anqx.ttf);
+  font-family: "Roboto";
+  src: local("Roboto"), url(../assets/fonts/Roboto/Roboto-Regular.ttf);
 }
 
 @font-face {
@@ -15,18 +15,22 @@
 
 body {
   margin: 0;
-  font-family: "EightBitDragon", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 
   color: #444;
 
-  font-size: 14px;
+  font-size: 18px;
 }
 
 code {
   font-family: "FiraCode", source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
+
+  font-size: 16px;
+}
+
 }
 
 header {
