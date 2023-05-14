@@ -1,0 +1,43 @@
+---
+title: "Reflaxe/C++"
+author: Robert Borghese
+---
+
+import { Head } from "aleph/react";
+
+<Head>
+  <title>Reflaxe/C++</title>
+</Head>
+
+# Reflaxe/C++
+
+Reflaxe/C++ is an alternative C++ target for Haxe that generates dependent-less, GC-less C++17 code.
+
+<hr />
+
+The goal of this project is simple: create a compilation target for Haxe that generates minimal, human-readable C++ that can be compiled without linking additional libraries and does not rely on any garbage collection system.
+
+**Haxe Code**
+
+```haxe
+function main() {
+  trace("Hello world!");
+
+  var a: Dynamic = {};
+}
+```
+
+**Reflaxe/C++ Output**
+
+```cpp
+#include "Main.h"
+
+#include <iostream>
+
+void _Main::Main_Fields_::main() {
+	std::cout << "Main.hx:2: Hello world!" << std::endl;
+}
+```
+
+Check out more information here:<br/>
+https://github.com/RobertBorghese/reflaxe.CPP
