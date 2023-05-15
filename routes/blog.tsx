@@ -93,7 +93,11 @@ export default function Blog(props: PropsWithChildren) {
   return (
     <>
       <Head>
-        <meta name="description" content="Documentation powered by MDX" />
+        <meta content="Reflaxe/C++ Devlog 1" property="og:title" />
+        <meta
+          content="CallStack - Diving into the simple process of implementing `haxe.CallStack` for a custom Haxe target."
+          property="og:description"
+        />
       </Head>
       <div className="docs">
         <div className={"asideHold " + hClass}>
