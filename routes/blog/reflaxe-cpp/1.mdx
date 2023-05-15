@@ -143,10 +143,17 @@ class Test {
 }
 ```
 
-<table style={{ padding: "12px", marginTop: "30px" }}>
+<table
+  style={{
+    display: "block",
+    padding: "12px",
+    marginTop: "30px",
+    overflowX: "scroll",
+  }}
+>
   <tr>
-    <td style={{ paddingRight: "20px" }}>JavaScript</td>
-    <td>
+    <td style={{ paddingRight: "20px", textAlign: "center" }}>JavaScript</td>
+    <td className="fakecode-holder">
       <p className="fakecode">
         Test.hx:3: Called from (unknown).main
         (https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line 92
@@ -160,7 +167,7 @@ class Test {
   </tr>
   <tr>
     <td>HashLink</td>
-    <td>
+    <td className="fakecode-holder">
       <p className="fakecode">
         Test.hx:3: Called from haxe._CallStack.$CallStack_Impl_.callStack
         (/home/haxer/haxe/versions/4.3.1/std/haxe/CallStack.hx line 52) Called
@@ -170,7 +177,7 @@ class Test {
   </tr>
   <tr>
     <td>Eval</td>
-    <td>
+    <td className="fakecode-holder">
       <p className="fakecode">
         Test.hx:3: Called from Test.main (Test.hx line 3 column 35)
       </p>
