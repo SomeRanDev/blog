@@ -6,7 +6,7 @@ author: Robert Borghese
 import { Head } from "aleph/react";
 
 <Head>
-  <title>Reflaxe Devlog 1</title>
+  <title>Reflaxe/C++ Devlog 1</title>
 </Head>
 
 # Reflaxe/C++ Devlog #1 - CallStack
@@ -66,14 +66,15 @@ The funny part is, it actually does. With the release of C++23, a new class was 
 [std::basic_stacktrace](https://en.cppreference.com/w/cpp/utility/basic_stacktrace).
 Sooooo... I guess time to make C++23 the minimum required version!!
 
-Haha, I wish. Making C++17 the minimum version killed me, going any higher
-and this project would be less compatible then the original Haxe/C++ target. X_X
+Haha, I wish. Making C++17 the minimum version killed me; going any higher
+and this project would be less compatible than the original Haxe/C++ target. X_X
 
 So... time for option 2.
 
 ## Making a Call Stack
 
 When you really think about it though, tracking function calls isn't that hard.
+After all, C++'s destructors are a great tool for tracking scopes!
 
 Make a class that adds itself to a global stack when constructed,
 then removes itself using the destructor. When generating the C++,
@@ -102,40 +103,29 @@ void doSomething() {
 }
 ```
 
-## Line tracking
+## The Haxe Target Call Stack Experience
 
-However, I soon realized that call stacks do not just require a
-list of functions, but the exact line they're called from as well.
+To actually implement the call stack, we have to convert our custom stack
+data into Haxe's. Thankfully, there's this super convenient hidden class
+that exists just for this purpose: [NativeStackTrace](https://github.com/HaxeFoundation/haxe/blob/development/std/haxe/NativeStackTrace.hx).
 
-Taking a peak into [hxcpp](https://github.com/HaxeFoundation/hxcpp/blob/c3e5ab85b0c19688f7494ae44909ed4bfc63bdb7/include/hx/StackContext.h#LL170C72-L170C72),
-it appears their solution is to do what I've done so far, but also update
-the function's stack tracing variable every expression. THAT'S what all those
-ugly `HXLINE` do (guess it was kinda obvious).
+> All we gotta do is implement a version of this class with the functions filled
+> out in our target's `_std` folder.
 
-It wouldn't be too hard to implement that as well... and it's not like
-I have much of a choice, but wooooow it destroys the beautiful Reflaxe/C++
-code I had so much pride in.
-
-But in the end, I implemented it. Since Reflaxe/C++ does not use any dependencies,
-the code is incorporated into the `NativeStackTrace` class. A wonderful class made
-specifically for target-dependent implementations of the call stack.
-
-You can check it out [here](https://github.com/RobertBorghese/reflaxe.CPP/blob/main/std/cxx/_std/haxe/NativeStackTrace.hx)!
-
-<hr />
-
-Alas... Reflaxe/C++'s "Hello World" output now looks like this:
-
-```cpp
-void _Main::Main_Fields_::main() {
-  HCXX_STACK_METHOD("Main.hx", 1, 0, "_Main::Main_Fields_", "main")
-
-  HCXX_LINE(1)
-  std::cout << "Main.hx:2: Hello world!" << std::endl;
+```haxe
+extern class NativeStackTrace {
+	static public function saveStack(exception:Any):Void;
+	static public function callStack():Any;
+	static public function exceptionStack():Any;
+	static public function toHaxe(nativeStackTrace:Any, skip:Int = 0):Array<StackItem>;
 }
 ```
 
-## The Haxe Target Call Stack Experience
+The `Any` types can be replaced with our own target's unique call stack
+list type. For example, [C# uses System.Diagnostics.StackTrace](https://github.com/HaxeFoundation/haxe/blob/development/std/cs/_std/haxe/NativeStackTrace.hx)
+and [Python uses an `Array` of tuples](https://github.com/HaxeFoundation/haxe/blob/development/std/python/_std/haxe/NativeStackTrace.hx).
+From there, we implement functions to generate the stack from an exception
+or an arbitrary call, and finally we write the `toHaxe` function to convert it.
 
 What was especially interesting was discovering how inconsistent call stacks are
 for each target. While Haxe provides an enum for structuring the call stack in
@@ -195,13 +185,35 @@ This was a nice change of pace from the usual, restrictive nature of
 the Haxe API, as this would allow me to make sure the Reflaxe/C++
 call stack was as nice as possible.
 
-I was especially worried about the way local functions would be
-printed, but came up with a nice solution of using `Method` for
-everything (as opposed to the `LocalFunction(i: Int)` case).
-From there, I tracked and used the actual names associated with
-the local functions.
+## Line tracking
 
-So for example, this is how Reflaxe/C++'s call stack looks:
+While filling out the `StackItem`s, it became clear I'd forgetten something.
+Call stacks do not just require a list of functions, but the _exact_ line
+they're called from.
+
+Taking a peak into [hxcpp](https://github.com/HaxeFoundation/hxcpp/blob/c3e5ab85b0c19688f7494ae44909ed4bfc63bdb7/include/hx/StackContext.h#LL170C72-L170C72),
+it appears their solution is to do what I've done so far, but also update
+the function's stack tracing variable every expression. THAT'S what all those
+ugly `HXLINE` do (guess it was kinda obvious).
+
+It wouldn't be too hard to implement that as well... and it's not like
+I have much of a choice, but wooooow it destroys the beautiful Reflaxe/C++
+code I had so much pride in.
+
+But in the end, I implemented it. All it took was overriding `Reflaxe`'s
+`prefixExpressionContent` function and generating content before
+every expression was a piece of cake.
+
+## Final Conversion
+
+I was worried about the way local functions would be printed,
+but as discussed before, we only need to use the `StackItem`s we need.
+Like with the Haxe/Python target, I opted to the `FilePos(Method(...), ...)`
+combo for everything.
+
+`Method` allows for any text to be added for the class and function, so
+even in rare cases like local functions, I was able to generate a nice,
+custom format that stood supreme to other targets:
 
 ```haxe
 class Test {
@@ -220,6 +232,29 @@ class Test {
 Called from Test.main.a.b (Test.hx line 5 column 3)
 Called from Test.main.a (Test.hx line 4 column 2)
 Called from Test.main (Test.hx line 3 column 1)
+```
+
+## Result
+
+Since Reflaxe/C++ does not use any dependencies, all the code (both the C++
+implementation and Haxe externs) is implemented in the `NativeStackTrace`
+module.
+
+You can check it out [here](https://github.com/RobertBorghese/reflaxe.CPP/blob/main/std/cxx/_std/haxe/NativeStackTrace.hx)!
+
+Reflaxe's DCE system is powerful; you only pay for what you use.
+Unfortunately... it looks like you'll always be using the
+`NativeStackTrace` code.
+
+Reflaxe/C++'s once beautiful "Hello World" output now looks like this:
+
+```cpp
+void _Main::Main_Fields_::main() {
+  HCXX_STACK_METHOD("Main.hx", 1, 0, "_Main::Main_Fields_", "main")
+
+  HCXX_LINE(1)
+  std::cout << "Main.hx:2: Hello world!" << std::endl;
+}
 ```
 
 ## Opt In Option
@@ -244,4 +279,4 @@ about it. In the future, I'll need to keep separate call stacks for each
 thread. But threads have not been implemented yet, so that's a problem
 for future me!
 
-Anyway, that's about it for this log. May you visit again.
+Anyway, that's about it for this log. May you visit again!
