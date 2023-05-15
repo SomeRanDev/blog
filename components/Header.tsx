@@ -7,13 +7,8 @@ export default function Header() {
         <h1>
           <Link className="tooltip" to="/">
             <span className="tooltiptext">Home Page</span>
-            <title>RoBBoR</title>
-            <span
-              style={{ transform: "scaleX(-1.0)", display: "inline-block" }}
-            >
-              BoR
-            </span>
-            <span>BoR</span>
+            <title>Home</title>
+            <span>Home</span>
           </Link>
         </h1>
         <nav>
