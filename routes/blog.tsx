@@ -44,6 +44,10 @@ function toggleSidebar() {
   toggleClass(document.getElementById("sidebar"), "hidden");
   toggleClass(document.getElementsByClassName("asideHold")[0], "hidden");
   toggleClass(document.getElementsByClassName("asideButton")[0], "hidden");
+  toggleClass(
+    document.getElementsByClassName("markdown-body-holder")[0],
+    "hidden"
+  );
 }
 
 // Construct the navbar html
@@ -117,7 +121,10 @@ export default function Blog(props: PropsWithChildren) {
             <nav>{genNav(nav)}</nav>
           </aside>
         </div>
-        <div style={{ flexDirection: "column" }}>
+        <div
+          className={"markdown-body-holder " + hClass}
+          style={{ flexDirection: "column" }}
+        >
           <div className="markdown-body">
             <MDXProvider components={components}>{props.children}</MDXProvider>
           </div>

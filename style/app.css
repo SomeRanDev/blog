@@ -218,7 +218,17 @@ header a:hover {
   gap: 10px;
 }
 
+.markdown-body-holder.hidden {
+  width: 90%;
+}
+
+.markdown-body-holder {
+  transition: width 0.2s;
+  width: calc(90% - 220px);
+}
+
 .markdown-body {
+  width: 100%;
   padding: 48px 0;
 }
 
