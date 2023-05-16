@@ -5,12 +5,16 @@
   }
 
   & .textContainer {
-    padding: 8px;
-    margin: 8px;
+    padding: auto;
+    margin: 4px;
     background-color: #eee;
-    border-radius: 6px;
+    border-radius: 4px;
 
     border: dashed 1px black;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

@@ -41,7 +41,12 @@ export default class BlogSubtext extends Component<BlogSubtextProps> {
           style={{ display: "flex", flexDirection: "row", marginTop: "24px" }}
         >
           <div
-            style={{ display: "flex", flexDirection: "column", flexGrow: "1" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: "1",
+              marginRight: "4px",
+            }}
           >
             <p className="textContainer" style={{ flexGrow: "1" }}>
               {this.props.date}
