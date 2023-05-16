@@ -22,20 +22,24 @@ export default class RandomQuote extends Component {
     `"It's so over." -me (the public hand sanitizer dispenser was empty as always)`,
   ];
 
-  constructor(props) {
-    super(props);
+  state = {
+    existingQuotes: [],
+    quotes: [],
+    quoteIndex: 0,
+  };
 
+  loadData() {
     // Load quote time tracker
-    let timeSinceLastQuote = this.loadLocalStorage("timeSinceLastQuote", 0);
-    let now = Date.now();
+    const timeSinceLastQuote = this.loadLocalStorage("timeSinceLastQuote", 0);
+    const now = Date.now();
 
     // Load quote data
-    let recentQuotes = this.loadLocalStorage("recentQuotes", []);
-    this.existingQuotes = this.loadLocalStorage("quotesFound", []);
+    const recentQuotes: number[] = this.loadLocalStorage("recentQuotes", []);
+    const existingQuotes: number[] = this.loadLocalStorage("quotesFound", []);
 
     // If it hasn't been 10 seconds since last quote, reuse the old one.
     // If it has, find quote index that wasn't used recently.
-    let quoteIndex;
+    let quoteIndex: number;
     if (recentQuotes.length > 0 && now - timeSinceLastQuote < 10000) {
       quoteIndex = recentQuotes[recentQuotes.length - 1];
     } else {
@@ -50,9 +54,9 @@ export default class RandomQuote extends Component {
     }
 
     // Setup state
-    this.state = {
-      quote: quoteIndex,
-    };
+    // this.state = {
+    //   quote: quoteIndex,
+    // };
 
     // Add quote index to recents
     if (recentQuotes.length > 4) recentQuotes.shift();
@@ -60,15 +64,18 @@ export default class RandomQuote extends Component {
     localStorage.setItem("recentQuotes", JSON.stringify(recentQuotes));
 
     // Add quote index to list of ones that have been found
-    if (this.existingQuotes.length < this.quotes.length) {
-      if (!this.existingQuotes.includes(quoteIndex)) {
-        this.existingQuotes.push(quoteIndex);
-        localStorage.setItem(
-          "quotesFound",
-          JSON.stringify(this.existingQuotes)
-        );
+    if (existingQuotes.length < this.quotes.length) {
+      if (!existingQuotes.includes(quoteIndex)) {
+        existingQuotes.push(quoteIndex);
+        localStorage.setItem("quotesFound", JSON.stringify(existingQuotes));
       }
     }
+
+    this.setState({
+      existingQuotes,
+      quotes: this.quotes,
+      quoteIndex,
+    });
   }
 
   // Load item from localstorage and parse it automatically
@@ -83,11 +90,15 @@ export default class RandomQuote extends Component {
     return result;
   }
 
+  componentDidMount() {
+    this.loadData();
+  }
+
   // Render the quote + quote discover progress
   render() {
     const quoteProgress =
-      this.existingQuotes.length < this.quotes.length
-        ? this.existingQuotes.length +
+      this.state.existingQuotes.length < this.state.quotes.length
+        ? this.state.existingQuotes.length +
           " / " +
           this.quotes.length +
           " quotes found."
@@ -95,7 +106,7 @@ export default class RandomQuote extends Component {
     return (
       <>
         <p style={{ maxWidth: "min(600px, 90vw)", fontSize: "24px" }}>
-          {this.quotes[this.state.quote]}
+          {this.state.quotes[this.state.quoteIndex]}
         </p>
         <p style={{ fontSize: "16px", color: "#666", paddingTop: "8px" }}>
           {"(" + quoteProgress + ")"}
