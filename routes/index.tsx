@@ -17,6 +17,16 @@ export default function Index() {
       <Head>
         <title>RoBBoR's Blog</title>
         <meta name="description" content="RoBBoR's blog." />
+        <meta content="some rand code blog" name="twitter:title" />
+        <meta content="some rand code blog" property="og:title" />
+        <meta
+          content="a blog about my haxe coding projects and such"
+          name="twitter:description"
+        />
+        <meta
+          content="a blog about my haxe coding projects and such"
+          property="og:description"
+        />
       </Head>
       <p className="logo">
         <WalkingSprite />
