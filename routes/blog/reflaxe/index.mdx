@@ -5,6 +5,7 @@ author: Robert Borghese
 
 import { Head } from "aleph/react";
 import BlogMeta from "~/components/BlogMeta.tsx";
+import GithubButton from "~/components/GithubButton.tsx";
 
 export const title = "About Reflaxe";
 export const desc =
@@ -18,5 +19,10 @@ Reflaxe is a Haxe framework for creating compilation targets using macros.
 
 <hr />
 
-Check out more information here:<br/>
-https://github.com/RobertBorghese/reflaxe
+Check out more information here:
+
+<GithubButton
+  link="https://github.com/RobertBorghese/reflaxe"
+  url="https://api.github.com/repos/RobertBorghese/reflaxe"
+  badgeUrl="https://github.com/RobertBorghese/reflaxe/actions/workflows/test.yml/badge.svg"
+/>
