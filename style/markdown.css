@@ -64,7 +64,8 @@
 
   & h2 {
     margin-top: 2.8rem;
-    font-size: 1.8rem;
+    /* ORIGINAL font-size: 1.8rem; */
+    font-size: 1.6em;
   }
 
   & h3 {

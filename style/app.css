@@ -3,6 +3,9 @@
 @import url("./hljs.css");
 @import url("./tooltip.css");
 
+@import url("./blog.css");
+@import url("./github_button.css");
+
 @font-face {
   font-family: "Roboto";
   src: local("Roboto"), url(../assets/fonts/Roboto/Roboto-Regular.ttf);
@@ -21,14 +24,14 @@ body {
 
   color: #444;
 
-  font-size: 18px;
+  font-size: 1em;
 }
 
 code {
   font-family: "FiraCode", source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
 
-  font-size: 16px;
+  font-size: 0.9em;
 }
 
 .fakecode-holder {
@@ -37,7 +40,7 @@ code {
 .fakecode {
   font-family: "FiraCode", source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
-  font-size: 14px;
+  font-size: 0.7em;
   background-color: #ddd;
   border-radius: 6px;
   padding: 12px;
@@ -103,7 +106,7 @@ header a:hover {
 }
 
 .e404 h2 {
-  font-size: 24px;
+  font-size: 1.5em;
   font-weight: 500;
 }
 
@@ -127,7 +130,7 @@ header a:hover {
 .index h1 {
   margin: 0;
   line-height: 1.4;
-  font-size: 28px;
+  font-size: 1.75em;
   font-weight: 700;
   text-align: center;
   color: #000;
@@ -136,7 +139,7 @@ header a:hover {
 .index p {
   margin: 0;
   line-height: 1.2;
-  font-size: 18px;
+  font-size: 1.125em;
   text-align: center;
   color: #333;
 }
