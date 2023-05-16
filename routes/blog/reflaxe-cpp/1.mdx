@@ -5,6 +5,7 @@ author: Robert Borghese
 
 import { Head } from "aleph/react";
 import BlogMeta from "~/components/BlogMeta.tsx";
+import BlogSubtext from "~/components/BlogSubtext.tsx";
 
 export const title = "Reflaxe/C++ Devlog 1 - CallStack";
 export const desc =
@@ -13,6 +14,15 @@ export const desc =
 <Head>{BlogMeta({ title: title, desc: desc })}</Head>
 
 # Reflaxe/C++ Devlog #1 - CallStack
+
+<BlogSubtext
+  url="https://api.github.com/repos/RobertBorghese/reflaxe.CPP"
+  badgeUrl="https://github.com/RobertBorghese/reflaxe.CPP/actions/workflows/main.yml/badge.svg"
+  date="May 15, 2023"
+  author="Robert Borghese"
+/>
+
+## Intro
 
 It wasn't until I started delving into the dreaded `Dynamic` type
 that I realized Reflaxe/C++ lacked a proper error reporting system.
