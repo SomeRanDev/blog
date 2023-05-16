@@ -5,6 +5,7 @@ type BlogSubtextProps = {
   date: string;
   author: string;
 
+  link: string;
   url: string;
   badgeUrl: string;
 };
@@ -50,6 +51,7 @@ export default class BlogSubtext extends Component<BlogSubtextProps> {
             </p>
           </div>
           <GithubButton
+            link={this.props.link}
             url={this.props.url}
             badgeUrl={this.props.badgeUrl}
             style={{ flexGrow: "2", width: "50%" }}

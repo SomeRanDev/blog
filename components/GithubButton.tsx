@@ -3,6 +3,7 @@ import { Component, CSSProperties } from "react";
 type GithubButtonProps = {
   style: CSSProperties;
 
+  link: string;
   url: string;
   badgeUrl: string;
 };
@@ -34,7 +35,11 @@ export default class GithubButton extends Component<GithubButtonProps> {
   render() {
     return (
       <>
-        <div style={this.props.style} className="GithubButton">
+        <a
+          style={this.props.style}
+          className="GithubButton"
+          href={this.props.link}
+        >
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div className="title">
               <p style={{ float: "left" }}>{this.state.name}</p>
@@ -55,7 +60,7 @@ export default class GithubButton extends Component<GithubButtonProps> {
               <p>View on Github</p>
             </div>
           </div>
-        </div>
+        </a>
       </>
     );
   }
