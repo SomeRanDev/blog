@@ -258,8 +258,8 @@ header a:hover {
 
   &.hidden {
     padding-right: 0px;
-    width: 30px;
-    min-width: 30px;
+    width: 1em;
+    min-width: 1em;
     flex-shrink: 0;
   }
 
