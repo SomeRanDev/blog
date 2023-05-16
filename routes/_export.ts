@@ -236,8 +236,6 @@ for future me!`}),`
 `,s(e.p,{children:s(e.strong,{children:"Haxe Code"})}),`
 `,s(e.pre,{children:c(e.code,{className:"hljs language-haxe",children:[c(e.span,{className:"hljs-function",children:[s(e.span,{className:"hljs-keyword",children:"function"})," ",s(e.span,{className:"hljs-title",children:"main"})]}),`() {
   `,s(e.span,{className:"hljs-built_in",children:"trace"}),"(",s(e.span,{className:"hljs-string",children:'"Hello world!"'}),`);
-
-  `,s(e.span,{className:"hljs-keyword",children:"var"})," a: ",s(e.span,{className:"hljs-type",children:"Dynamic "}),`= {};
 }
 `]})}),`
 `,s(e.p,{children:s(e.strong,{children:"Reflaxe/C++ Output"})}),`
