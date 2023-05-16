@@ -31,9 +31,21 @@ const order: any[] = [];
 }
 
 // Helper for toggling a class on an element
-function toggleClass(element: Element | null, clsName: string) {
+function toggleClass(
+  element: Element | null,
+  clsName: string,
+  forceAdd?: boolean
+) {
   if (element !== null) {
-    if (element.classList.contains(clsName)) {
+    if (forceAdd === true) {
+      if (!element.classList.contains(clsName)) {
+        element.classList.add(clsName);
+      }
+    } else if (forceAdd === false) {
+      if (element.classList.contains(clsName)) {
+        element.classList.remove(clsName);
+      }
+    } else if (element.classList.contains(clsName)) {
       element.classList.remove(clsName);
     } else {
       element.classList.add(clsName);
@@ -59,9 +71,9 @@ function makeAnimated() {
 }
 
 // On sidebar toggled, add or remove "hidden"
-function toggleSidebar() {
+function toggleSidebar(setHidden?: boolean) {
   getSidebarElements().forEach((element) => {
-    toggleClass(element, "hidden");
+    toggleClass(element, "hidden", setHidden);
   });
 }
 
@@ -101,8 +113,10 @@ export const ssr = {
 
 // <Blog />
 export default function Blog(props: PropsWithChildren<any>) {
-  const hClass = "hidden"; //window.innerWidth < 1000 ? "hidden" : "";
+  //const hClass = "hidden"; //window.innerWidth < 1000 ? "hidden" : "";
 
+  const [hClass, setHClass] = useState("");
+  const [getLoadedScreen, setLoadedScreen] = useState(false);
   const [next, setNext] = useState(null);
   const [previous, setPrev] = useState(null);
 
@@ -126,20 +140,21 @@ export default function Blog(props: PropsWithChildren<any>) {
     setNext(next);
     setPrev(previous);
 
-    console.log(
-      window.innerWidth >= 700,
-      window.innerWidth / window.innerHeight > 0.7
-    );
-
     if (
       window.innerWidth >= 800 &&
       window.innerWidth / window.innerHeight > 0.7
     ) {
-      toggleSidebar();
+      setHClass("");
+    } else {
+      setHClass("hidden");
     }
+
+    setLoadedScreen(true);
   });
 
-  return (
+  return !getLoadedScreen ? (
+    <></>
+  ) : (
     <>
       <div className="docs">
         <div className={"asideHold " + hClass}>
