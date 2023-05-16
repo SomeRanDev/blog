@@ -224,19 +224,20 @@ header a:hover {
   gap: 10px;
 }
 
-.markdown-body-holder.hidden {
-  width: 90%;
-}
-
-.markdown-body-holder.animated {
-  transition: width 0.2s;
-}
 /*@media only screen and (max-width: 720px) {
     display: none;
   }*/
 
 .markdown-body-holder {
   width: calc(90% - 220px);
+
+  &.animated {
+    transition: width 0.2s;
+  }
+
+  &.hidden {
+    width: 90%;
+  }
 }
 
 .markdown-body {
