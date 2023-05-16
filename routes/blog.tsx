@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState, useEffect } from "react";
 import { MDXProvider } from "@mdx-js/react";
 import { Head, NavLink, Link } from "aleph/react";
 import { components } from "../components/Heading.tsx";
@@ -14,10 +14,10 @@ const nav = [
 ];
 
 // Calculate order of blogs
-const order = [];
+const order: any[] = [];
 
 {
-  function _makeOrder(item) {
+  function _makeOrder(item: any) {
     if (Array.isArray(item) && item.length >= 2) {
       if (typeof item[1] === "string") {
         order.push(item[1]);
@@ -31,11 +31,13 @@ const order = [];
 }
 
 // Helper for toggling a class on an element
-function toggleClass(element, clsName) {
-  if (element.classList.contains(clsName)) {
-    element.classList.remove(clsName);
-  } else {
-    element.classList.add(clsName);
+function toggleClass(element: Element | null, clsName: string) {
+  if (element !== null) {
+    if (element.classList.contains(clsName)) {
+      element.classList.remove(clsName);
+    } else {
+      element.classList.add(clsName);
+    }
   }
 }
 
@@ -51,13 +53,13 @@ function toggleSidebar() {
 }
 
 // Construct the navbar html
-function genNav(item, index) {
+function genNav(item: any[] | string, index?: number) {
   if (Array.isArray(item) && item.length >= 2) {
     if (typeof item[1] === "string") {
       const title = item[0];
       const href = item[1];
       return (
-        <li key={href} data-num={"" + (index + 1)}>
+        <li key={href} data-num={"" + ((index ?? 0) + 1)}>
           <NavLink to={href} activeClassName="active" exact>
             {title}
           </NavLink>
@@ -70,25 +72,47 @@ function genNav(item, index) {
   throw "Impossible";
 }
 
+export const ssr = {
+  props: (req) => {
+    console.log(req);
+    return {
+      $revalidate: 0, // revalidate props after 1 second
+      username: "Test",
+      serverTime: Date.now(),
+    };
+  },
+  paths: () => {
+    return ["/blog"];
+  },
+};
+
 // <Blog />
-export default function Blog(props: PropsWithChildren) {
+export default function Blog(props: PropsWithChildren<any>) {
   const hClass = window.innerWidth < 720 ? "hidden" : "";
 
-  const pathname = document.location.pathname;
-  const index = order.indexOf(pathname);
+  const [next, setNext] = useState(null);
+  const [previous, setPrev] = useState(null);
 
-  let next = null;
-  let previous = null;
-  if (index >= 0) {
-    const nextIndex = index + 1;
-    const prevIndex = index - 1;
-    if (nextIndex >= 0 && nextIndex < order.length) {
-      next = order[nextIndex];
+  useEffect(() => {
+    const pathname = document.location.pathname;
+    const index = order.indexOf(pathname);
+
+    let next = null;
+    let previous = null;
+    if (index >= 0) {
+      const nextIndex = index + 1;
+      const prevIndex = index - 1;
+      if (nextIndex >= 0 && nextIndex < order.length) {
+        next = order[nextIndex];
+      }
+      if (prevIndex >= 0 && prevIndex < order.length) {
+        previous = order[prevIndex];
+      }
     }
-    if (prevIndex >= 0 && prevIndex < order.length) {
-      previous = order[prevIndex];
-    }
-  }
+
+    setNext(next);
+    setPrev(previous);
+  });
 
   return (
     <>
