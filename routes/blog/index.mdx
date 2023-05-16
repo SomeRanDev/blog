@@ -1,13 +1,16 @@
 ---
-title: "About"
+title: About
 author: Robert Borghese
 ---
 
 import { Head } from "aleph/react";
+import BlogMeta from "~/components/BlogMeta.tsx";
 
-<Head>
-  <title>About</title>
-</Head>
+export const title = "About";
+export const desc =
+  "This is a blog documenting the progress of my various projects. The large majority of which involve the Haxe programming language.";
+
+<Head>{BlogMeta({ title: title, desc: desc })}</Head>;
 
 # About
 

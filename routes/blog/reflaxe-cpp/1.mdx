@@ -1,23 +1,16 @@
 ---
-title: "Reflaxe/C++ - Devlog 1"
+title: Reflaxe/C++ Devlog 1 - CallStack
 author: Robert Borghese
 ---
 
 import { Head } from "aleph/react";
+import BlogMeta from "~/components/BlogMeta.tsx";
 
-<Head>
-  <title>Reflaxe/C++ Devlog 1 - CallStack</title>
-  <meta content="Reflaxe/C++ Devlog 1 - CallStack" name="twitter:title" />
-  <meta content="Reflaxe/C++ Devlog 1 - CallStack" property="og:title" />
-  <meta
-    content="A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler."
-    name="twitter:description"
-  />
-  <meta
-    content="A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler."
-    property="og:description"
-  />
-</Head>
+export const title = "Reflaxe/C++ Devlog 1 - CallStack";
+export const desc =
+  "A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler.";
+
+<Head>{BlogMeta({ title: title, desc: desc })}</Head>;
 
 # Reflaxe/C++ Devlog #1 - CallStack
 
@@ -161,38 +154,40 @@ class Test {
     overflowX: "scroll",
   }}
 >
-  <tr>
-    <td style={{ paddingRight: "20px", textAlign: "center" }}>JavaScript</td>
-    <td className="fakecode-holder">
-      <p className="fakecode">
-        Test.hx:3: Called from (unknown).main
-        (https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line 92
-        column 67) Called from
-        https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line 405
-        column 6 Called from
-        https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line 406
-        column 3
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td>HashLink</td>
-    <td className="fakecode-holder">
-      <p className="fakecode">
-        Test.hx:3: Called from haxe._CallStack.$CallStack_Impl_.callStack
-        (/home/haxer/haxe/versions/4.3.1/std/haxe/CallStack.hx line 52) Called
-        from $Test.main (Test.hx line 3)
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td>Eval</td>
-    <td className="fakecode-holder">
-      <p className="fakecode">
-        Test.hx:3: Called from Test.main (Test.hx line 3 column 35)
-      </p>
-    </td>
-  </tr>
+  <tbody>
+    <tr>
+      <td style={{ paddingRight: "20px", textAlign: "center" }}>JavaScript</td>
+      <td className="fakecode-holder">
+        <div className="fakecode">
+          Test.hx:3: Called from (unknown).main
+          (https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line
+          92 column 67) Called from
+          https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line
+          405 column 6 Called from
+          https://try.haxe.org/program/D005409d/run?r=0.5763444059826026 line
+          406 column 3
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>HashLink</td>
+      <td className="fakecode-holder">
+        <div className="fakecode">
+          Test.hx:3: Called from haxe._CallStack.$CallStack_Impl_.callStack
+          (/home/haxer/haxe/versions/4.3.1/std/haxe/CallStack.hx line 52) Called
+          from $Test.main (Test.hx line 3)
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Eval</td>
+      <td className="fakecode-holder">
+        <div className="fakecode">
+          Test.hx:3: Called from Test.main (Test.hx line 3 column 35)
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 In fact, most targets only appear to use `Method` and `FilePos` from

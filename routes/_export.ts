@@ -3,7 +3,7 @@
 // deno-fmt-ignore-file
 // deno-lint-ignore-file
 // @ts-nocheck
-var C=Object.defineProperty;var o=(t,e)=>{for(var u in e)C(t,u,{get:e[u],enumerable:!0})};import*as L from"./_404.tsx";import*as q from"./_app.tsx";import*as $ from"./blog.tsx";import*as W from"./index.tsx";var h={};o(h,{default:()=>T});import{Fragment as v,jsx as r,jsxs as l}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as g}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as _}from"aleph/react";function f(t){let e=Object.assign({h1:"h1",p:"p",a:"a",blockquote:"blockquote"},g(),t.components);return l(v,{children:[r(_,{children:r("title",{children:"About"})}),`
+var R=Object.defineProperty;var o=(t,e)=>{for(var f in e)R(t,f,{get:e[f],enumerable:!0})};import*as Z from"./_404.tsx";import*as ee from"./_app.tsx";import*as ne from"./blog.tsx";import*as ae from"./index.tsx";var h={};o(h,{default:()=>B,desc:()=>k,title:()=>b});import{Fragment as D,jsx as r,jsxs as l}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as x}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as A}from"aleph/react";import F from"~/components/BlogMeta.tsx";var b="About",k="This is a blog documenting the progress of my various projects. The large majority of which involve the Haxe programming language.";function g(t){let e=Object.assign({p:"p",h1:"h1",a:"a",blockquote:"blockquote"},x(),t.components);return l(D,{children:[l(e.p,{children:[r(A,{children:F({title:b,desc:k})}),";"]}),`
 `,r(e.h1,{id:"about",children:"About"}),`
 `,l(e.p,{children:[`This is a blog documenting the progress of my various projects.
 The large majority of which involve the `,r(e.a,{href:"https://haxe.org",children:"Haxe"}),`
@@ -33,12 +33,12 @@ wish to develop my own programming language, and have made
 a Haxe library that helps generate hyper optimized code from
 beautifully chained Array/Iterable extension functions.`]}),`
 `]}),`
-`,r(e.p,{children:"Thanks for reading this! Hope you enjoy your stay."})]})}function S(t={}){let{wrapper:e}=Object.assign({},g(),t.components);return e?r(e,Object.assign({},t,{children:r(f,t)})):f(t)}var T=S;var d={};o(d,{default:()=>M});import{Fragment as H,jsx as i,jsxs as x}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as b}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as I}from"aleph/react";function k(t){let e=Object.assign({h1:"h1",p:"p",a:"a"},b(),t.components);return x(H,{children:[i(I,{children:i("title",{children:"Reflaxe"})}),`
+`,r(e.p,{children:"Thanks for reading this! Hope you enjoy your stay."})]})}function O(t={}){let{wrapper:e}=Object.assign({},x(),t.components);return e?r(e,Object.assign({},t,{children:r(g,t)})):g(t)}var B=O;var p={};o(p,{default:()=>q,desc:()=>N,title:()=>w});import{Fragment as P,jsx as i,jsxs as d}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as j}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as X}from"aleph/react";import E from"~/components/BlogMeta.tsx";var w="About Reflaxe",N="Reflaxe is a Haxe framework for creating compilation targets using macros.";function y(t){let e=Object.assign({p:"p",h1:"h1",a:"a"},j(),t.components);return d(P,{children:[d(e.p,{children:[i(X,{children:E({title:w,desc:N})}),";"]}),`
 `,i(e.h1,{id:"reflaxe",children:"Reflaxe"}),`
 `,i(e.p,{children:"Reflaxe is a Haxe framework for creating compilation targets using macros."}),`
 `,i("hr",{}),`
-`,x(e.p,{children:["Check out more information here:",i("br",{}),`
-`,i(e.a,{href:"https://github.com/RobertBorghese/reflaxe",children:"https://github.com/RobertBorghese/reflaxe"})]})]})}function R(t={}){let{wrapper:e}=Object.assign({},b(),t.components);return e?i(e,Object.assign({},t,{children:i(k,t)})):k(t)}var M=R;var p={};o(p,{default:()=>O});import{Fragment as D,jsx as n,jsxs as a}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as j}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as A}from"aleph/react";function y(t){let e=Object.assign({h1:"h1",p:"p",code:"code",pre:"pre",span:"span",h2:"h2",a:"a",em:"em",blockquote:"blockquote"},j(),t.components);return a(D,{children:[a(A,{children:[n("title",{children:"Reflaxe/C++ Devlog 1 - CallStack"}),n("meta",{content:"Reflaxe/C++ Devlog 1 - CallStack",name:"twitter:title"}),n("meta",{content:"Reflaxe/C++ Devlog 1 - CallStack",property:"og:title"}),n("meta",{content:"A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler.",name:"twitter:description"}),n("meta",{content:"A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler.",property:"og:description"})]}),`
+`,d(e.p,{children:["Check out more information here:",i("br",{}),`
+`,i(e.a,{href:"https://github.com/RobertBorghese/reflaxe",children:"https://github.com/RobertBorghese/reflaxe"})]})]})}function L(t={}){let{wrapper:e}=Object.assign({},j(),t.components);return e?i(e,Object.assign({},t,{children:i(y,t)})):y(t)}var q=L;var m={};o(m,{default:()=>z,desc:()=>S,title:()=>_});import{Fragment as $,jsx as n,jsxs as a}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as v}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as W}from"aleph/react";import U from"~/components/BlogMeta.tsx";var _="Reflaxe/C++ Devlog 1 - CallStack",S="A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler.";function C(t){let e=Object.assign({p:"p",h1:"h1",code:"code",pre:"pre",span:"span",h2:"h2",a:"a",em:"em",blockquote:"blockquote"},v(),t.components);return a($,{children:[a(e.p,{children:[n(W,{children:U({title:_,desc:S})}),";"]}),`
 `,n(e.h1,{id:"reflaxec-devlog-1---callstack",children:"Reflaxe/C++ Devlog #1 - CallStack"}),`
 `,a(e.p,{children:["It wasn't until I started delving into the dreaded ",n(e.code,{children:"Dynamic"}),` type\r
 that I realized Reflaxe/C++ lacked a proper error reporting system.\r
@@ -146,15 +146,15 @@ each target, you can see how the call stack differs drastically:`]}),`
   }\r
 }
 `]})}),`
-`,a("table",{style:{display:"block",padding:"12px",marginTop:"30px",overflowX:"scroll"},children:[a("tr",{children:[n("td",{style:{paddingRight:"20px",textAlign:"center"},children:"JavaScript"}),n("td",{className:"fakecode-holder",children:n("p",{className:"fakecode",children:a(e.p,{children:[`Test.hx:3: Called from (unknown).main\r
-(`,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line 92\r
-column 67) Called from\r
-`,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line 405\r
-column 6 Called from\r
-`,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line 406\r
-column 3`]})})})]}),a("tr",{children:[n("td",{children:"HashLink"}),n("td",{className:"fakecode-holder",children:n("p",{className:"fakecode",children:a(e.p,{children:["Test.hx:3: Called from haxe.",n(e.em,{children:"CallStack.$CallStack_Impl"}),`.callStack\r
+`,n("table",{style:{display:"block",padding:"12px",marginTop:"30px",overflowX:"scroll"},children:a("tbody",{children:[a("tr",{children:[n("td",{style:{paddingRight:"20px",textAlign:"center"},children:"JavaScript"}),n("td",{className:"fakecode-holder",children:n("div",{className:"fakecode",children:a(e.p,{children:[`Test.hx:3: Called from (unknown).main\r
+(`,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line\r
+92 column 67) Called from\r
+`,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line\r
+405 column 6 Called from\r
+`,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line\r
+406 column 3`]})})})]}),a("tr",{children:[n("td",{children:"HashLink"}),n("td",{className:"fakecode-holder",children:n("div",{className:"fakecode",children:a(e.p,{children:["Test.hx:3: Called from haxe.",n(e.em,{children:"CallStack.$CallStack_Impl"}),`.callStack\r
 (/home/haxer/haxe/versions/4.3.1/std/haxe/CallStack.hx line 52) Called\r
-from $Test.main (Test.hx line 3)`]})})})]}),a("tr",{children:[n("td",{children:"Eval"}),n("td",{className:"fakecode-holder",children:n("p",{className:"fakecode",children:n(e.p,{children:"Test.hx:3: Called from Test.main (Test.hx line 3 column 35)"})})})]})]}),`
+from $Test.main (Test.hx line 3)`]})})})]}),a("tr",{children:[n("td",{children:"Eval"}),n("td",{className:"fakecode-holder",children:n("div",{className:"fakecode",children:n(e.p,{children:"Test.hx:3: Called from Test.main (Test.hx line 3 column 35)"})})})]})]})}),`
 `,a(e.p,{children:["In fact, most targets only appear to use ",n(e.code,{children:"Method"})," and ",n(e.code,{children:"FilePos"}),` from\r
 `,n(e.code,{children:"haxe.StackItem"}),". The rest are for niche cases with certain targets."]}),`
 `,n(e.p,{children:`This was a nice change of pace from the usual, restrictive nature of\r
@@ -228,7 +228,7 @@ advertise Reflaxe/C++ as the prettiest C++ output in all the land!`}),`
 about it. In the future, I'll need to keep separate call stacks for each\r
 thread. But threads have not been implemented yet, so that's a problem\r
 for future me!`}),`
-`,n(e.p,{children:"Anyway, that's about it for this log. May you visit again!"})]})}function F(t={}){let{wrapper:e}=Object.assign({},j(),t.components);return e?n(e,Object.assign({},t,{children:n(y,t)})):y(t)}var O=F;var m={};o(m,{default:()=>E});import{Fragment as P,jsx as s,jsxs as c}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as N}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as X}from"aleph/react";function w(t){let e=Object.assign({h1:"h1",p:"p",strong:"strong",pre:"pre",code:"code",span:"span",a:"a"},N(),t.components);return c(P,{children:[s(X,{children:s("title",{children:"Reflaxe/C++"})}),`
+`,n(e.p,{children:"Anyway, that's about it for this log. May you visit again!"})]})}function G(t={}){let{wrapper:e}=Object.assign({},v(),t.components);return e?n(e,Object.assign({},t,{children:n(C,t)})):C(t)}var z=G;var u={};o(u,{default:()=>Q,desc:()=>M,title:()=>I});import{Fragment as Y,jsx as s,jsxs as c}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as H}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as J}from"aleph/react";import K from"~/components/BlogMeta.tsx";var I="About Reflaxe/C++",M="Reflaxe/C++ is an alternative C++ target for Haxe that generates dependent-less, GC-less C++17 code.";function T(t){let e=Object.assign({p:"p",h1:"h1",strong:"strong",pre:"pre",code:"code",span:"span",a:"a"},H(),t.components);return c(Y,{children:[c(e.p,{children:[s(J,{children:K({title:I,desc:M})}),";"]}),`
 `,s(e.h1,{id:"reflaxec",children:"Reflaxe/C++"}),`
 `,s(e.p,{children:"Reflaxe/C++ is an alternative C++ target for Haxe that generates dependent-less, GC-less C++17 code."}),`
 `,s("hr",{}),`
@@ -250,4 +250,4 @@ for future me!`}),`
 }
 `]})}),`
 `,c(e.p,{children:["Check out more information here:",s("br",{}),`
-`,s(e.a,{href:"https://github.com/RobertBorghese/reflaxe.CPP",children:"https://github.com/RobertBorghese/reflaxe.CPP"})]})]})}function B(t={}){let{wrapper:e}=Object.assign({},N(),t.components);return e?s(e,Object.assign({},t,{children:s(w,t)})):w(t)}var E=B;var se={"/_404":L,"/_app":q,"/blog":$,"/":W,"/blog/index":h,"/blog/reflaxe/index":d,"/blog/reflaxe-cpp/1":p,"/blog/reflaxe-cpp/index":m,depGraph:{"modules":[{"specifier":"./routes\\blog\\index.mdx"},{"specifier":"./routes\\blog\\reflaxe\\index.mdx"},{"specifier":"./routes\\blog\\reflaxe-cpp\\1.mdx"},{"specifier":"./routes\\blog\\reflaxe-cpp\\index.mdx"}]}};export{se as default};
+`,s(e.a,{href:"https://github.com/RobertBorghese/reflaxe.CPP",children:"https://github.com/RobertBorghese/reflaxe.CPP"})]})]})}function V(t={}){let{wrapper:e}=Object.assign({},H(),t.components);return e?s(e,Object.assign({},t,{children:s(T,t)})):T(t)}var Q=V;var ye={"/_404":Z,"/_app":ee,"/blog":ne,"/":ae,"/blog/index":h,"/blog/reflaxe/index":p,"/blog/reflaxe-cpp/1":m,"/blog/reflaxe-cpp/index":u,depGraph:{"modules":[{"specifier":"./routes\\blog\\index.mdx"},{"specifier":"./routes\\blog\\reflaxe\\index.mdx"},{"specifier":"./routes\\blog\\reflaxe-cpp\\1.mdx"},{"specifier":"./routes\\blog\\reflaxe-cpp\\index.mdx"}]}};export{ye as default};

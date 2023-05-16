@@ -1,13 +1,16 @@
 ---
-title: "Reflaxe"
+title: Reflaxe
 author: Robert Borghese
 ---
 
 import { Head } from "aleph/react";
+import BlogMeta from "~/components/BlogMeta.tsx";
 
-<Head>
-  <title>Reflaxe</title>
-</Head>
+export const title = "About Reflaxe";
+export const desc =
+  "Reflaxe is a Haxe framework for creating compilation targets using macros.";
+
+<Head>{BlogMeta({ title: title, desc: desc })}</Head>;
 
 # Reflaxe
 

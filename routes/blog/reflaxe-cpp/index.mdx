@@ -1,13 +1,16 @@
 ---
-title: "Reflaxe/C++"
+title: Reflaxe/C++
 author: Robert Borghese
 ---
 
 import { Head } from "aleph/react";
+import BlogMeta from "~/components/BlogMeta.tsx";
 
-<Head>
-  <title>Reflaxe/C++</title>
-</Head>
+export const title = "About Reflaxe/C++";
+export const desc =
+  "Reflaxe/C++ is an alternative C++ target for Haxe that generates dependent-less, GC-less C++17 code.";
+
+<Head>{BlogMeta({ title: title, desc: desc })}</Head>;
 
 # Reflaxe/C++
 

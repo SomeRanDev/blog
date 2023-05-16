@@ -116,13 +116,6 @@ export default function Blog(props: PropsWithChildren<any>) {
 
   return (
     <>
-      <Head>
-        <meta content="Reflaxe/C++ Devlog 1" property="og:title" />
-        <meta
-          content="CallStack - Diving into the simple process of implementing `haxe.CallStack` for a custom Haxe target."
-          property="og:description"
-        />
-      </Head>
       <div className="docs">
         <div className={"asideHold " + hClass}>
           <button className={"asideButton " + hClass} onClick={toggleSidebar}>
