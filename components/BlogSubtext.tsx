@@ -44,7 +44,7 @@ export default class BlogSubtext extends Component<BlogSubtextProps> {
             style={{
               display: "flex",
               flexDirection: "column",
-              flexGrow: "1",
+              flexGrow: "4",
               marginRight: "4px",
             }}
           >
@@ -59,7 +59,7 @@ export default class BlogSubtext extends Component<BlogSubtextProps> {
             link={this.props.link}
             url={this.props.url}
             badgeUrl={this.props.badgeUrl}
-            style={{ flexGrow: "2", width: "50%" }}
+            style={{ flexGrow: "5", width: "50%" }}
           />
         </div>
       </>

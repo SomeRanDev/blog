@@ -2,6 +2,7 @@
   & p {
     color: #444;
     font-size: 1em;
+    text-align: center;
   }
 
   & .textContainer {
