@@ -228,8 +228,11 @@ header a:hover {
   width: 90%;
 }
 
-.markdown-body-holder {
+.markdown-body-holder.animated {
   transition: width 0.2s;
+}
+
+.markdown-body-holder {
   width: calc(90% - 220px);
 }
 
@@ -247,36 +250,44 @@ header a:hover {
 
   flex-direction: column;
 
-  transition: width 0.2s, min-width 0.2s, padding-right 0.2s;
   transform-origin: center left;
-}
 
-.docs > .asideHold.hidden {
-  padding-right: 0px;
-  width: 30px;
-  min-width: 30px;
-  flex-shrink: 0;
+  &.hidden {
+    padding-right: 0px;
+    width: 30px;
+    min-width: 30px;
+    flex-shrink: 0;
+  }
+
+  &.animated {
+    transition: width 0.2s, min-width 0.2s, padding-right 0.2s;
+  }
 }
 
 .docs > .asideHold > .asideButton {
   float: right;
   padding-bottom: 8px;
 
-  transition: transform 0.5s;
-}
+  &.animated {
+    transition: transform 0.5s;
+  }
 
-.docs > .asideHold > .asideButton.hidden {
-  transform: rotateY(180deg);
+  &.hidden {
+    transform: rotateY(180deg);
+  }
 }
 
 .docs > .asideHold > aside {
-  transition: width 0.2s, min-width 0.2s, transform 0.2s;
   transform-origin: center left;
 
   &.hidden {
     width: 0;
     min-width: 0;
     transform: scaleX(0);
+  }
+
+  &.animated {
+    transition: width 0.2s, min-width 0.2s, transform 0.2s;
   }
 
   & .search {

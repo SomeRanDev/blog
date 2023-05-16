@@ -41,15 +41,28 @@ function toggleClass(element: Element | null, clsName: string) {
   }
 }
 
+function getSidebarElements(): (Element | null)[] {
+  return [
+    document.getElementById("sidebar"),
+    document.getElementsByClassName("asideHold")[0],
+    document.getElementsByClassName("asideButton")[0],
+    document.getElementsByClassName("markdown-body-holder")[0],
+  ];
+}
+
+function makeAnimated() {
+  getSidebarElements().forEach((element) => {
+    if (element !== null && !element.classList.contains("animated")) {
+      element.classList.add("animated");
+    }
+  });
+}
+
 // On sidebar toggled, add or remove "hidden"
 function toggleSidebar() {
-  toggleClass(document.getElementById("sidebar"), "hidden");
-  toggleClass(document.getElementsByClassName("asideHold")[0], "hidden");
-  toggleClass(document.getElementsByClassName("asideButton")[0], "hidden");
-  toggleClass(
-    document.getElementsByClassName("markdown-body-holder")[0],
-    "hidden"
-  );
+  getSidebarElements().forEach((element) => {
+    toggleClass(element, "hidden");
+  });
 }
 
 // Construct the navbar html
@@ -88,7 +101,7 @@ export const ssr = {
 
 // <Blog />
 export default function Blog(props: PropsWithChildren<any>) {
-  const hClass = window.innerWidth < 720 ? "hidden" : "";
+  const hClass = "hidden"; //window.innerWidth < 1000 ? "hidden" : "";
 
   const [next, setNext] = useState(null);
   const [previous, setPrev] = useState(null);
@@ -112,13 +125,31 @@ export default function Blog(props: PropsWithChildren<any>) {
 
     setNext(next);
     setPrev(previous);
+
+    console.log(
+      window.innerWidth >= 700,
+      window.innerWidth / window.innerHeight > 0.7
+    );
+
+    if (
+      window.innerWidth >= 800 &&
+      window.innerWidth / window.innerHeight > 0.7
+    ) {
+      toggleSidebar();
+    }
   });
 
   return (
     <>
       <div className="docs">
         <div className={"asideHold " + hClass}>
-          <button className={"asideButton " + hClass} onClick={toggleSidebar}>
+          <button
+            className={"asideButton " + hClass}
+            onClick={() => {
+              makeAnimated();
+              toggleSidebar();
+            }}
+          >
             <svg
               width="30px"
               height="30px"
