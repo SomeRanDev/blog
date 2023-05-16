@@ -15,8 +15,8 @@ export default function Index() {
   return (
     <div className="screen index">
       <Head>
-        <title>RoBBoR's Blog</title>
-        <meta name="description" content="RoBBoR's blog." />
+        <title>SomeRanDev's Blog</title>
+        <meta name="description" content="SomeRanDev's coding blog." />
         <meta content="some rand code blog" name="twitter:title" />
         <meta content="some rand code blog" property="og:title" />
         <meta
@@ -32,7 +32,7 @@ export default function Index() {
         <WalkingSprite />
       </p>
       <h1>SomeRanDev's Blog</h1>
-      <p style={{ fontSize: "16px", color: "#666", paddingTop: "0px" }}>
+      <p style={{ fontSize: "1em", color: "#666", paddingTop: "0px" }}>
         by Robert Borghese
       </p>
       <br />
