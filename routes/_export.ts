@@ -33,12 +33,12 @@ wish to develop my own programming language, and have made
 a Haxe library that helps generate hyper optimized code from
 beautifully chained Array/Iterable extension functions.`]}),`
 `]}),`
-`,r(e.p,{children:"Thanks for reading this! Hope you enjoy your stay."})]})}function S(t={}){let{wrapper:e}=Object.assign({},g(),t.components);return e?r(e,Object.assign({},t,{children:r(f,t)})):f(t)}var T=S;var d={};o(d,{default:()=>R});import{Fragment as H,jsx as i,jsxs as x}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as k}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as I}from"aleph/react";function b(t){let e=Object.assign({h1:"h1",p:"p",a:"a"},k(),t.components);return x(H,{children:[i(I,{children:i("title",{children:"Reflaxe"})}),`
+`,r(e.p,{children:"Thanks for reading this! Hope you enjoy your stay."})]})}function S(t={}){let{wrapper:e}=Object.assign({},g(),t.components);return e?r(e,Object.assign({},t,{children:r(f,t)})):f(t)}var T=S;var d={};o(d,{default:()=>M});import{Fragment as H,jsx as i,jsxs as x}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as b}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as I}from"aleph/react";function k(t){let e=Object.assign({h1:"h1",p:"p",a:"a"},b(),t.components);return x(H,{children:[i(I,{children:i("title",{children:"Reflaxe"})}),`
 `,i(e.h1,{id:"reflaxe",children:"Reflaxe"}),`
 `,i(e.p,{children:"Reflaxe is a Haxe framework for creating compilation targets using macros."}),`
 `,i("hr",{}),`
 `,x(e.p,{children:["Check out more information here:",i("br",{}),`
-`,i(e.a,{href:"https://github.com/RobertBorghese/reflaxe",children:"https://github.com/RobertBorghese/reflaxe"})]})]})}function M(t={}){let{wrapper:e}=Object.assign({},k(),t.components);return e?i(e,Object.assign({},t,{children:i(b,t)})):b(t)}var R=M;var p={};o(p,{default:()=>O});import{Fragment as D,jsx as n,jsxs as a}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as j}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as A}from"aleph/react";function y(t){let e=Object.assign({h1:"h1",p:"p",code:"code",pre:"pre",span:"span",h2:"h2",a:"a",em:"em",blockquote:"blockquote"},j(),t.components);return a(D,{children:[n(A,{children:n("title",{children:"Reflaxe/C++ Devlog 1"})}),`
+`,i(e.a,{href:"https://github.com/RobertBorghese/reflaxe",children:"https://github.com/RobertBorghese/reflaxe"})]})]})}function R(t={}){let{wrapper:e}=Object.assign({},b(),t.components);return e?i(e,Object.assign({},t,{children:i(k,t)})):k(t)}var M=R;var p={};o(p,{default:()=>O});import{Fragment as D,jsx as n,jsxs as a}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as j}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as A}from"aleph/react";function y(t){let e=Object.assign({h1:"h1",p:"p",code:"code",pre:"pre",span:"span",h2:"h2",a:"a",em:"em",blockquote:"blockquote"},j(),t.components);return a(D,{children:[a(A,{children:[n("title",{children:"Reflaxe/C++ Devlog 1 - CallStack"}),n("meta",{content:"Reflaxe/C++ Devlog 1 - CallStack",name:"twitter:title"}),n("meta",{content:"Reflaxe/C++ Devlog 1 - CallStack",property:"og:title"}),n("meta",{content:"A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler.",name:"twitter:description"}),n("meta",{content:"A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler.",property:"og:description"})]}),`
 `,n(e.h1,{id:"reflaxec-devlog-1---callstack",children:"Reflaxe/C++ Devlog #1 - CallStack"}),`
 `,a(e.p,{children:["It wasn't until I started delving into the dreaded ",n(e.code,{children:"Dynamic"}),` type\r
 that I realized Reflaxe/C++ lacked a proper error reporting system.\r
@@ -146,15 +146,15 @@ each target, you can see how the call stack differs drastically:`]}),`
   }\r
 }
 `]})}),`
-`,a("table",{style:{padding:"12px",marginTop:"30px"},children:[a("tr",{children:[n("td",{style:{paddingRight:"20px"},children:"JavaScript"}),n("td",{children:n("p",{className:"fakecode",children:a(e.p,{children:[`Test.hx:3: Called from (unknown).main\r
+`,a("table",{style:{display:"block",padding:"12px",marginTop:"30px",overflowX:"scroll"},children:[a("tr",{children:[n("td",{style:{paddingRight:"20px",textAlign:"center"},children:"JavaScript"}),n("td",{className:"fakecode-holder",children:n("p",{className:"fakecode",children:a(e.p,{children:[`Test.hx:3: Called from (unknown).main\r
 (`,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line 92\r
 column 67) Called from\r
 `,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line 405\r
 column 6 Called from\r
 `,n(e.a,{href:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026",children:"https://try.haxe.org/program/D005409d/run?r=0.5763444059826026"}),` line 406\r
-column 3`]})})})]}),a("tr",{children:[n("td",{children:"HashLink"}),n("td",{children:n("p",{className:"fakecode",children:a(e.p,{children:["Test.hx:3: Called from haxe.",n(e.em,{children:"CallStack.$CallStack_Impl"}),`.callStack\r
+column 3`]})})})]}),a("tr",{children:[n("td",{children:"HashLink"}),n("td",{className:"fakecode-holder",children:n("p",{className:"fakecode",children:a(e.p,{children:["Test.hx:3: Called from haxe.",n(e.em,{children:"CallStack.$CallStack_Impl"}),`.callStack\r
 (/home/haxer/haxe/versions/4.3.1/std/haxe/CallStack.hx line 52) Called\r
-from $Test.main (Test.hx line 3)`]})})})]}),a("tr",{children:[n("td",{children:"Eval"}),n("td",{children:n("p",{className:"fakecode",children:n(e.p,{children:"Test.hx:3: Called from Test.main (Test.hx line 3 column 35)"})})})]})]}),`
+from $Test.main (Test.hx line 3)`]})})})]}),a("tr",{children:[n("td",{children:"Eval"}),n("td",{className:"fakecode-holder",children:n("p",{className:"fakecode",children:n(e.p,{children:"Test.hx:3: Called from Test.main (Test.hx line 3 column 35)"})})})]})]}),`
 `,a(e.p,{children:["In fact, most targets only appear to use ",n(e.code,{children:"Method"})," and ",n(e.code,{children:"FilePos"}),` from\r
 `,n(e.code,{children:"haxe.StackItem"}),". The rest are for niche cases with certain targets."]}),`
 `,n(e.p,{children:`This was a nice change of pace from the usual, restrictive nature of\r
