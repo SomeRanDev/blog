@@ -8,9 +8,6 @@ type GithubButtonProps = {
   badgeUrl: string;
 };
 
-//https://api.github.com/repos/RobertBorghese/reflaxe.CPP
-//https://github.com/RobertBorghese/reflaxe.CPP/actions/workflows/main.yml/badge.svg
-
 export default class GithubButton extends Component<GithubButtonProps> {
   state = {
     name: "",

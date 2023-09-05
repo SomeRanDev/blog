@@ -1,51 +1,49 @@
 import { Component } from "react";
 import GithubButton from "~/components/GithubButton.tsx";
 
-type BlogSubtextProps = {
-  date: string;
-  author: string;
-
+type BlogSubtextGithubLink = {
   link: string;
   url: string;
   badgeUrl: string;
+}
+
+type BlogSubtextProps = {
+  date: string;
+  author: string;
+  githubLinks: BlogSubtextGithubLink[];
 };
 
 export default class BlogSubtext extends Component<BlogSubtextProps> {
-  state = {
-    name: "",
-    desc: "",
-    url: "",
-  };
+  state: {name: string, desc: string, url: string}[] = [];
 
   constructor(props: BlogSubtextProps) {
     super(props);
   }
 
-  async componentDidMount() {
-    const response = await fetch(
-      "https://api.github.com/repos/RobertBorghese/reflaxe.CPP"
-    );
-    const json = await response.json();
-    this.setState({
-      name: json.name,
-      description: json.description,
-      url: json.html_url,
-    });
-  }
-
   render() {
+    let buttons = [];
+
+    for(const link of this.props.githubLinks) {
+      const l = link;
+      buttons.push(<GithubButton
+        link={l.link}
+        url={l.url}
+        badgeUrl={l.badgeUrl}
+        style={{ flexGrow: "1" }}
+      />);
+    }
+
     return (
       <>
         <div
           className="BlogSubtext"
-          style={{ display: "flex", flexDirection: "row", marginTop: "24px" }}
+          style={{ display: "flex", flexDirection: "row", marginTop: "24px", gap: "8px" }}
         >
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               flexGrow: "4",
-              marginRight: "4px",
             }}
           >
             <p className="textContainer" style={{ flexGrow: "1" }}>
@@ -55,12 +53,11 @@ export default class BlogSubtext extends Component<BlogSubtextProps> {
               by {this.props.author}
             </p>
           </div>
-          <GithubButton
-            link={this.props.link}
-            url={this.props.url}
-            badgeUrl={this.props.badgeUrl}
-            style={{ flexGrow: "5", width: "50%" }}
-          />
+          <div
+            style={{ display: "flex", flexGrow: "5", width: "50%", gap: "4px" }}
+          >
+          {buttons}
+          </div>
         </div>
       </>
     );
