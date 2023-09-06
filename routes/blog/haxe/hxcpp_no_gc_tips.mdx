@@ -34,8 +34,6 @@ export const desc =
 
 # Haxe/C++ Garbage Collector
 
-**THIS IS A WORK IN PROGRESS**
-
 C++ generated from Haxe uses a garbage collector. If you are wondering how to avoid the garbage collector, you're in the right place!
 
 Despite how frequently people ask about it, I've found there is a surprising lack of information regarding this topic. To fix this, I've created this page to consolidate everything there is about using value-types in Haxe/C++. Let's get started!
@@ -47,15 +45,32 @@ Please note at the time of writing this, Haxe 4.3 is the latest release and what
 # Table of Contents
 
 ### Intro
-
+* [Examples](/blog/haxe/hxcpp_no_gc_tips#examples)
 * [Your Tools](/blog/haxe/hxcpp_no_gc_tips#your-tools)
 * [What's a Value-Type?](/blog/haxe/hxcpp_no_gc_tips#whats-a-value-type)
 
-### Using Value-Types Without Using @:nativeGen
-* [What Does the C++ Look Like?](/blog/haxe/hxcpp_no_gc_tips#what-does-the-c-look-like)
+### Value-Types Using @:nativeGen
+* [Using @:nativeGen](/blog/haxe/hxcpp_no_gc_tips#using-nativegen)
+* [A Deeper Look Into @:nativeGen Restrictions](/blog/haxe/hxcpp_no_gc_tips#a-deeper-look-into-nativegen-restrictions)
+* [Use Default Constructors with @:nativeGen!](/blog/haxe/hxcpp_no_gc_tips#use-default-constructors-with-nativegen)
+* [Storing a @:nativeGen Type](/blog/haxe/hxcpp_no_gc_tips#storing-a-nativegen-type)
+
+### Value-Types Without Using @:nativeGen
+* [What Does the C++ Look Like Without @:nativeGen?](/blog/haxe/hxcpp_no_gc_tips#what-does-the-c-look-like-without-nativegen)
 * [Customizing C++ Type Output](/blog/haxe/hxcpp_no_gc_tips#customizing-c-type-output)
 * [Passing Value-Types as Arguments](/blog/haxe/hxcpp_no_gc_tips#passing-value-types-as-arguments)
 * [Custom Value-Type Constructor](/blog/haxe/hxcpp_no_gc_tips#custom-value-type-constructor)
+* [Accessing GC Object as Value-Type](/blog/haxe/hxcpp_no_gc_tips#accessing-gc-object-as-value-type)
+
+### Outro
+* [The End?](/blog/haxe/hxcpp_no_gc_tips#the-end)
+
+# Examples
+
+Here are some examples of Haxe/C++ libraries that use some GC-avoidance tricks! (Feel free to suggest more and I'll add them)
+
+### [Raylib Haxe](https://github.com/haxeui/raylib-haxe)
+This [library's externs](https://github.com/haxeui/raylib-haxe/blob/main/RayLib.hx) for the basic Raylib data-structures like `RayVector2` are stack-allocated externs.
 
 # Your Tools
 
@@ -73,7 +88,7 @@ This metadata sets the name that the class or function will use when converted t
 // Use on class
 @:nativeGen
 ```
-This metadata removes all reflection capability from a Haxe class, but the C++ output for the class becomes significantly cleaner.
+This metadata removes all reflection capability from a Haxe class, but the C++ output for the class becomes significantly cleaner. The garbage collector is no longer used upon construction.
 
 ## C++ Expression Injector
 ```haxe
@@ -98,20 +113,158 @@ Injects C++ code at the top level of the header or source file the class is gene
 Injects C++ within the class generated in the header.
 
 # What's a Value-Type?
-Value-types are types generated on the stack in C++. For example:
+Value-types are types whose instances are allocated on the stack in C++. For example:
 ```cpp
-MyClass obj; // value-type
+MyClass obj; // stack allocated
 MyClass obj2 = obj; // copied instead of referenced
 
 void func(MyClass a) { /* ... */ }
 func(obj); // copied into function
 ```
 
-Instead of using a garbage collector, C++ will copy around objects. This can be better for performance when generating tons of objects frequently since the creation/destruction occurs consistently instead of building up lag spikes when the gc clears.
+Instead of using a garbage collector, stack allocated objects will be deleted the moment their scope ends. This can be better for performance when generating tons of objects frequently since the creation/destruction occurs consistently instead of building up in the GC.
 
 When this article refers to "avoiding Haxe/C++ GC", it is referring to creating, copying, storing, and declaring functions that take value-types.
 
-# What Does the C++ Look Like?
+# Using @:nativeGen
+
+The easiest way to avoid the GC is to use the `@:nativeGen` on a class. This is very similar to using `struct` in C# (or `@:struct` in Haxe/C#), as `@:nativeGen` class instances are allocated as values.
+
+```haxe
+@:nativeGen
+@:structAccess // ensure dot access uses "." instead of "->"
+class StackClass {
+  public var value: Int;
+  public function new(v: Int) {
+    value = v;
+  }
+}
+
+function main() {
+  final sc = new StackClass(123);
+  trace(sc.value); // 123
+}
+```
+
+Here is the abbreviated C++ output of the Haxe code above:
+
+```cpp
+// Normally the C++ class would contain tons of reflection/dynamic helper functions and properties...
+// but since we're using @:nativeGen, it only generates the bare minimum.
+class StackClass {
+public:
+  StackClass(int v) {
+    this->value = v;
+  }
+
+  int value;
+};
+
+void main() {
+  StackClass sc = StackClass(123);
+  ::haxe::Log_obj::trace(sc.value);
+}
+```
+
+However, there are some downsides to using `@:nativeGen`:
+* No reflection information.
+* Must be wrapped with `cpp.Struct` to be stored in any Haxe class.
+* Cannot extend from classes that don't also use `@:nativeGen`.
+* There's no guarentee the `@:nativeGen` objects can be passed to functions from third-party libraries and game frameworks.
+* At the current moment, it does [not support interfaces](https://github.com/HaxeFoundation/haxe/issues/7199).
+
+# A Deeper Look Into @:nativeGen Restrictions
+
+The biggest downside of `@:nativeGen` is losing access to core Haxe features that may be required for libraries to function.
+
+For example, if we were using HaxeFlixel and added `@:nativeGen` to our `PlayState` class, we would get a C++ error like this:
+```haxe
+/*
+Error: PlayState.cpp
+
+./src/PlayState.cpp(39): error C2039: 'create': is not a member of 'flixel::group::FlxTypedGroup_obj'
+
+include\flixel/FlxG.h(18): note: see declaration of 'flixel::group::FlxTypedGroup_obj'
+
+./src/PlayState.cpp(78): error C2614: 'PlayState': illegal member initialization: 'FlxState' is not a base or member
+*/
+@:nativeGen
+class PlayState extends FlxState { /* ... */ }
+```
+
+So typically we want to use `@:nativeGen` on smaller data classes that are used internally.
+
+A great example would be for a class used to pass or return multiple types:
+```haxe
+@:nativeGen
+class Position {
+  public var x: Int = 0;
+  public var y: Int = 0;
+  public function new() {}
+  public static function make(x: Int, y: Int) {
+    final result = new Position();
+    result.x = x;
+    result.y = y;
+    return result;
+  }
+}
+
+function getCoords(): Position {
+  // ... run code to get x/y
+
+  // Return data in stack-allocated object.
+  // Significantly more optimal than a Haxe anonymous structure.
+  return Position.make(_x, _y);
+}
+```
+
+# Use Default Constructors with @:nativeGen!
+
+Note with the code above, the `Position` type has a default constructor AND a static function to construct with arguments. Value-types need a default value when uninitialized in C++, which may happen with your `@:nativeGen` type in the generated C++.
+
+As a result, it is a good practice to always provide a default constructor for your `@:nativeGen` class!
+
+# Storing a @:nativeGen Type
+
+If you want to store your `@:nativeGen` value type anywhere outside of a function, you'll need to wrap if in `cpp.Struct` if it's being stored in a normal Haxe type. This includes:
+* Passing to `Dynamic`
+* Storing in `Array` or `Map`
+* Storing as class variable in non-`@:nativeGen` type
+
+```haxe
+@:nativeGen
+class Position {
+  public var x: Int = 0;
+  public var y: Int = 0;
+  public function new() {}
+}
+
+// A Haxe-compatible class
+class HaxeObject {
+  // using just "Position" would break C++ compilation
+  var pos: cpp.Struct<Position>;
+
+  // Similar to above, make sure it's an array of "cpp.Struct"
+  var history: Array<cpp.Struct<Position>>;
+
+  public function new(x: Int, y: Int) {
+    // Assign a @:nativeGen object to a cpp.Struct to convert it
+    pos = new Position();
+    pos.x = x;
+    pos.y = y;
+  }
+}
+```
+
+Long story short, `cpp.Struct` will "Haxe-ify" a C++ object by wrapping it with `Dynamic`. Rest assured GC is NOT used with `cpp.Struct`, it will still destruct like you would expect a C++ stack value to. 
+
+Unfortunately, there is still some overhead wrapping with `cpp.Struct`. It requires copying the value and minor processing. It's negligible, but you should still avoid using `cpp.Struct` if you can.
+
+And that's that!
+
+# What Does the C++ Look Like Without @:nativeGen?
+
+Now, let's focus on options without using `@:nativeGen`. We can still manage value objects for a class without losing its capacity for generating GC objects and reflection, but it's a bit more work.
 
 Given a basic Haxe class:
 
@@ -144,7 +297,7 @@ namespace mypack {
     // other functions/variables are compiled pretty normally
     int value;
 
-    // ... and also like 20 extra lines of helper functions for reflection and gc features.
+    // ... and also like 20 extra lines of helper functions for reflection and GC features.
   };
 }
 ```
@@ -170,7 +323,7 @@ This is because Haxe doesn't know what type `obj` should be, so it defaults to u
 obj.__construct(123);
 ```
 
-`Dynamic` is implemented in the hxcpp library and works just like how it does in Haxe. It's meant to store any object and use reflection to access its properties. However, our value-type object does not have access to reflection capabilities (and also `Dynamic` is slow), so we need to avoid it!
+`Dynamic` is implemented in the hxcpp library and works just like how it does in Haxe. It's meant to store any object and use reflection to access its properties. Though, our value-type object does not have access to reflection capabilities (and also `Dynamic` is slow), so we need to avoid it!
 
 You may think we simply need to annotate `obj` with `MyClass`, but keep in mind: "MyClass" in C++ actually refers to `::hx::ObjectPtr<MyClass_obj>`. So this won't work:
 ```haxe
@@ -321,3 +474,34 @@ function main() {
   copyValue(obj);
 }
 ```
+
+# Accessing GC Object as Value-Type
+
+Let's say you have a normal Haxe/C++ that's managed by the GC, and you want to dereference it and get the value-type? Simple!
+
+`hx::ObjectPtr` has a function in C++ called `GetPtr()` that returns the underlying raw pointer. Dereference that, and you can make a value copy.
+```haxe
+final obj = new MyClass(123); // construct normal object
+final objValue: MyClassValue = untyped __cpp__("(*{0}.GetPtr())", obj); // deref
+copyValue(objValue); // compiles in C++!
+```
+
+If you want, we could add a static extension function to our project to make this cleaner:
+```haxe
+// ValueHelpers.hx
+extern inline function asValue<T>(obj: T) {
+  return untyped __cpp__("(*{0}.GetPtr())", obj);
+}
+
+// mypack/MyClass.hx
+using ValueHelpers;
+
+final obj = new MyClass(123);
+final objValue: MyClassValue = obj.asValue();
+```
+
+# The End?
+
+This page is a work in progress! Want to suggest additional material? Did I make a mistake? Open an issue on this blog's [Github page](https://github.com/RobertBorghese/blog) or leave a comment below!
+
+Thanks for reading!
