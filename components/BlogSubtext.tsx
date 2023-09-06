@@ -14,7 +14,7 @@ type BlogSubtextProps = {
 };
 
 export default class BlogSubtext extends Component<BlogSubtextProps> {
-  state: {name: string, desc: string, url: string}[] = [];
+  //state: {name: string, desc: string, url: string}[] = [];
 
   constructor(props: BlogSubtextProps) {
     super(props);
@@ -22,16 +22,7 @@ export default class BlogSubtext extends Component<BlogSubtextProps> {
 
   render() {
     let buttons = [];
-
-    for(const link of this.props.githubLinks) {
-      const l = link;
-      buttons.push(<GithubButton
-        link={l.link}
-        url={l.url}
-        badgeUrl={l.badgeUrl}
-        style={{ flexGrow: "1" }}
-      />);
-    }
+    let index = 0;
 
     return (
       <>
@@ -56,7 +47,17 @@ export default class BlogSubtext extends Component<BlogSubtextProps> {
           <div
             style={{ display: "flex", flexGrow: "5", width: "50%", gap: "4px" }}
           >
-          {buttons}
+          {
+            this.props.githubLinks.map(function(l) {
+              return (<GithubButton
+                key={"" + (index++)}
+                link={l.link}
+                url={l.url}
+                badgeUrl={l.badgeUrl}
+                style={{ flexGrow: "1" }}
+              />);
+            })
+          }
           </div>
         </div>
       </>

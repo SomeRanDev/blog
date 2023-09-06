@@ -370,3 +370,16 @@ header a:hover {
     padding-left: 10px;
   }
 }
+
+tbody.info_table {
+  & tr {
+    border: solid 1px black;
+    margin: 16px;
+  }
+
+  & tr td.title {
+    width: 35%;
+    paddingRight: 20px;
+    textAlign: center;
+  }
+}

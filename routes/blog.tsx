@@ -8,6 +8,8 @@ import Comments from "../components/Comments.tsx";
 const nav = [
   "baselist",
   ["About", "/blog"],
+  ["Haxe Articles", "/blog/haxe"],
+  ["haxe", ["Avoiding Haxe/C++ GC", "/blog/haxe/hxcpp_no_gc_tips", "🗑️"]],
   ["Reflaxe", "/blog/reflaxe"],
   ["Reflaxe/C++", "/blog/reflaxe-cpp"],
   ["reflaxecpp", ["CallStack", "/blog/reflaxe-cpp/1", "1"]],
@@ -83,8 +85,9 @@ function genNav(item: any[] | string, index?: number) {
     if (typeof item[1] === "string") {
       const title = item[0];
       const href = item[1];
+      const prefix = item[2] ?? ("" + ((index ?? 0) + 1));
       return (
-        <li key={href} data-num={"" + ((index ?? 0) + 1)}>
+        <li key={href} data-num={prefix}>
           <NavLink to={href} activeClassName="active" exact>
             {title}
           </NavLink>

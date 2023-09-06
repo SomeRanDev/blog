@@ -1,0 +1,321 @@
+---
+title: Haxe/C++ | Tips for Avoiding GC
+author: Robert Borghese
+---
+
+import { Head } from "aleph/react";
+import BlogMeta from "~/components/BlogMeta.tsx";
+import BlogSubtext from "~/components/BlogSubtext.tsx";
+
+export const title = "Haxe/C++ | Tips for Avoiding GC";
+export const desc =
+  "A breakdown of how to bypass Haxe/C++'s garbage collector and instead use value-types.";
+
+<Head>{BlogMeta({ title: title, desc: desc })}</Head>
+
+# Haxe/C++ | Tips for Avoiding GC
+
+<BlogSubtext
+  githubLinks={[
+  {
+    link: "https://github.com/HaxeFoundation/haxe",
+    url: "https://api.github.com/repos/HaxeFoundation/haxe",
+    badgeUrl: "https://github.com/HaxeFoundation/haxe/actions/workflows/main.yml/badge.svg"
+  },
+  {
+    link: "https://github.com/HaxeFoundation/hxcpp",
+    url: "https://api.github.com/repos/HaxeFoundation/hxcpp",
+    badgeUrl: "https://github.com/HaxeFoundation/hxcpp/actions/workflows/main.yml/badge.svg"
+  }
+  ]}
+  date="September 5, 2023"
+  author="Robert Borghese"
+/>
+
+# Haxe/C++ Garbage Collector
+
+C++ generated from Haxe uses a garbage collector. If you are wondering how to avoid the garbage collector, you're in the right place!
+
+Despite how frequently people ask about it, I've found there is a surprising lack of information regarding this topic. To fix this, I've created this page to consolidate everything there is about using value-types in Haxe/C++. Let's get started!
+
+Please note at the time of writing this, Haxe 4.3 is the latest release and what this article is using. While unlikely, future releases may generate C++ differently, so keep that in mind future people reading this!
+
+*P.S: Shoutout to the guy that linked you this page in response to your question. ❤️*
+
+# Table of Contents
+
+### Intro
+
+* [Your Tools](/blog/haxe/hxcpp_no_gc_tips#your-tools)
+* [What's a Value-Type?](/blog/haxe/hxcpp_no_gc_tips#whats-a-value-type)
+
+### Using Value-Types Without Using @:nativeGen
+* [What Does the C++ Look Like?](/blog/haxe/hxcpp_no_gc_tips#what-does-the-c-look-like)
+* [Customizing C++ Type Output](/blog/haxe/hxcpp_no_gc_tips#customizing-c-type-output)
+* [Passing Value-Types as Arguments](/blog/haxe/hxcpp_no_gc_tips#passing-value-types-as-arguments)
+* [Custom Value-Type Constructor](/blog/haxe/hxcpp_no_gc_tips#custom-value-type-constructor)
+
+# Your Tools
+
+First, let's become familiar with the tools we'll be using. These bypass Haxe's typing system, but if you play your code right there isn't any C++ feature you can't use, including memory management!
+
+## Native Metadata
+```haxe
+// Use on class or function
+@:native(name: String)
+```
+This metadata sets the name that the class or function will use when converted to C++.
+
+## Native Generation Metadata
+```haxe
+// Use on class
+@:nativeGen
+```
+This metadata removes all reflection capability from a Haxe class, but the C++ output for the class becomes significantly cleaner.
+
+## C++ Expression Injector
+```haxe
+// Call as function anywhere with "untyped"
+function __cpp__(codeString: String, ...args)
+```
+This function injects C++ code directly at the callsite.
+
+## C++ File Injector
+```haxe
+// Use on class
+@:headerCode(code: String)
+@:cppFileCode(code: String)
+```
+Injects C++ code at the top level of the header or source file the class is generated in.
+
+## C++ Class Injector
+```haxe
+// Use on class
+@:headerClassCode(code: String)
+```
+Injects C++ within the class generated in the header.
+
+# What's a Value-Type?
+Value-types are types generated on the stack in C++. For example:
+```cpp
+MyClass obj; // value-type
+MyClass obj2 = obj; // copied instead of referenced
+
+void func(MyClass a) { /* ... */ }
+func(obj); // copied into function
+```
+
+Instead of using a garbage collector, C++ will copy around objects. This can be better for performance when generating tons of objects frequently since the creation/destruction occurs consistently instead of building up lag spikes when the gc clears.
+
+When this article refers to "avoiding Haxe/C++ GC", it is referring to creating, copying, storing, and declaring functions that take value-types.
+
+# What Does the C++ Look Like?
+
+Given a basic Haxe class:
+
+```haxe
+package mypack;
+
+class MyClass {
+  public var value: Int;
+  public function new(v: Int) {
+    trace('Constructed with $v');
+    value = v;
+  }
+}
+```
+
+The C++ generated will look something like this:
+```cpp
+// Haxe package dictates the namespace the class will be wrapped in.
+namespace mypack {
+
+  // "MyClass" acts as an alias for implementation wrapped with Haxe's GC pointer class.
+  typedef ::hx::ObjectPtr<MyClass_obj> MyClass;
+
+  // Implementation of MyClass is called "MyClass_obj".
+  class MyClass_obj : public ::hx::Object {
+  public:
+    MyClass_obj(); // default constructor always created
+    void __construct(int num); // function "new" renamed to __construct
+
+    // other functions/variables are compiled pretty normally
+    int value;
+
+    // ... and also like 20 extra lines of helper functions for reflection and gc features.
+  };
+}
+```
+
+# Customizing C++ Type Output
+
+Ahh! So to create a value type, just use `MyClass_obj`!
+```haxe
+function main() {
+  final obj = untyped __cpp__("::mypack::MyClass_obj()");
+  untyped __cpp__("{0}.__construct({1})", obj, 123);
+}
+```
+
+Well... not quite... If you run this, you will get:
+```text
+error C2039: '__construct': is not a member of 'Dynamic'
+```
+
+This is because Haxe doesn't know what type `obj` should be, so it defaults to using `Dynamic`.
+```cpp
+::Dynamic obj = ::mypack::MyClass_obj();
+obj.__construct(123);
+```
+
+`Dynamic` is implemented in the hxcpp library and works just like how it does in Haxe. It's meant to store any object and use reflection to access its properties. However, our value-type object does not have access to reflection capabilities (and also `Dynamic` is slow), so we need to avoid it!
+
+You may think we simply need to annotate `obj` with `MyClass`, but keep in mind: "MyClass" in C++ actually refers to `::hx::ObjectPtr<MyClass_obj>`. So this won't work:
+```haxe
+// error C2440: 'initializing': cannot convert from 'mypack::MyClass_obj' to 'hx::ObjectPtr<mypack::MyClass_obj>'
+final obj: MyClass = untyped __cpp__("::mypack::MyClass_obj()");
+```
+
+But how do we have the value type be generated??
+
+Simple! Let's use `@:native`!
+```haxe
+@:native("::mypack::MyClass_obj")
+extern class MyClassValue {}
+```
+
+We use `extern` here so the class doesn't actually generate anything in C++. But it can still be used to place our custom C++ type anywhere we want in Haxe!
+
+Here's a working example of everything so far:
+```haxe
+package mypack;
+
+// Compiles successfully in C++!
+// Prints:
+//   Constructed with 123
+
+function main() {
+  final obj: MyClassValue = untyped __cpp__("::mypack::MyClass_obj()");
+  untyped __cpp__("{0}.__construct({1})", obj, 123);
+}
+
+@:native("::mypack::MyClass_obj")
+extern class MyClassValue {}
+
+class MyClass {
+  public var value: Int;
+  public function new(v: Int) {
+    trace('Constructed with $v');
+    value = v;
+  }
+}
+```
+
+# Passing Value-Types as Arguments
+
+So far, so good! The cool part is this "Value" type can be used for function arguments too:
+```haxe
+function copyValue(obj: MyClassValue) {
+  trace('obj copied with value ${obj.value}');
+}
+```
+
+Oh wait... uh-oh...
+```text
+mypack.MyClassValue has no field value
+```
+
+Our "value" class representation doesn't have its class's fields. We could convert it to an `abstract` and use `@:forward`... except `abstract` doesn't support `@:native` (yet?).
+
+So... what if we just extend from the original class?
+```haxe
+@:native("::mypack::MyClass_obj")
+extern class MyClassValue extends MyClass {}
+```
+
+This works! The only downside is `MyClass` can now be assigned to `MyClassValue` when they should be incompatible, but we're just not going to worry about that.
+
+Now when I say "this works", I mean it passes the Haxe typer checker. But C++ still giving us some trouble:
+```text
+error C2819: type 'mypack::MyClass_obj' does not have an overloaded member 'operator ->'
+note: did you intend to use '.' instead?
+```
+
+This is because Haxe generates dot-access as `->`. So it's generating `obj->value` when we want `obj.value`. To fix this, we use the `@:structAccess` metadata on the class to tell the compiler to use `.`.
+```haxe
+@:native("::mypack::MyClass_obj")
+@:structAccess
+extern class MyClassValue extends MyClass {}
+```
+
+We hit compile and.... another C++ error:
+```text
+error C2039: 'MyClass_obj': is not a member of 'mypack'
+```
+
+Long story short, the header file where `copyValue` function is defined does not have `MyClass` "#included", so it doesn't know about it. Once again, this is not a problem as Haxe has a solution for this!
+
+Using the `@:include` metadata, we can tell the Haxe compiler to use an include statement whenever the type is compiled in a file.
+
+The generated C++ should match the same path as the package -> Haxe module, so in this case the header should be located at `mypack/MyClass.h`.
+```haxe
+@:native("::mypack::MyClass_obj")
+@:structAccess
+@:include("mypack/MyClass.h")
+extern class MyClassValue extends MyClass {}
+```
+
+NOOOW this finally compiles:
+```haxe
+package mypack;
+
+// Prints: 
+//   Constructed with 123
+//   obj copied with value 123"
+function main() {
+  final obj: MyClassValue = untyped __cpp__("::mypack::MyClass_obj()");
+  untyped __cpp__("{0}.__construct({1})", obj, 123);
+  copyValue(obj);
+}
+
+function copyValue(obj: MyClassValue) {
+  trace('obj copied with value ${obj.value}');
+}
+
+@:native("::mypack::MyClass_obj")
+@:structAccess
+@:include("mypack/MyClass.h")
+extern class MyClassValue extends MyClass {}
+
+class MyClass {
+  public var value: Int;
+  public function new(v: Int) {
+    trace('Constructed with $v');
+    value = v;
+  }
+}
+```
+
+# Custom Value-Type Constructor
+
+For convenience, let's add a function to generate our value-type at any time. We can add an `extern inline` function to our `extern` value class. The implementation will be always be inlined so we don't have to worry about the value being "copied" out of the constructing function:
+```haxe
+@:native("::mypack::MyClass_obj")
+@:structAccess
+@:include("mypack/MyClass.h")
+extern class MyClassValue extends MyClass {
+  public static extern inline function make(v: Int): MyClassValue {
+    final result: MyClassValue = untyped __cpp__("::mypack::MyClass_obj()");
+    untyped __cpp__("{0}.__construct({1})", result, v);
+    return result;
+  }
+}
+```
+
+Now it's just a matter of calling `make`!
+```haxe
+function main() {
+  final obj = MyClassValue.make(123);
+  copyValue(obj);
+}
+```
