@@ -3,6 +3,7 @@ import { MDXProvider } from "@mdx-js/react";
 import { Head, NavLink, Link } from "aleph/react";
 import { components } from "../components/Heading.tsx";
 import Comments from "../components/Comments.tsx";
+import BlogMeta from "~/components/BlogMeta.tsx";
 
 import type { SSROptions } from 'https://deno.land/x/aleph/types.d.ts'
 
