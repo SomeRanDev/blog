@@ -365,6 +365,13 @@ extern class MyClassValue {}
 
 We use `extern` here so the class doesn't actually generate anything in C++. But it can still be used to place our custom C++ type anywhere we want in Haxe!
 
+Let's also add `@:semantics(variable)`. This will tell the compiler to avoid making excessive temporary variables using this type.
+```haxe
+@:semantics(variable)
+@:native("::mypack::MyClass_obj")
+extern class MyClassValue {}
+```
+
 Here's a working example of everything so far:
 ```haxe
 package mypack;
@@ -378,6 +385,7 @@ function main() {
   untyped __cpp__("{0}.__construct({1})", obj, 123);
 }
 
+@:semantics(variable)
 @:native("::mypack::MyClass_obj")
 extern class MyClassValue {}
 
@@ -408,6 +416,7 @@ Our "value" class representation doesn't have its class's fields. We could conve
 
 So... what if we just extend from the original class?
 ```haxe
+@:semantics(variable)
 @:native("::mypack::MyClass_obj")
 extern class MyClassValue extends MyClass {}
 ```
@@ -422,6 +431,7 @@ note: did you intend to use '.' instead?
 
 This is because Haxe generates dot-access as `->`. So it's generating `obj->value` when we want `obj.value`. To fix this, we use the `@:structAccess` metadata on the class to tell the compiler to use `.`.
 ```haxe
+@:semantics(variable)
 @:native("::mypack::MyClass_obj")
 @:structAccess
 extern class MyClassValue extends MyClass {}
@@ -438,13 +448,14 @@ Using the `@:include` metadata, we can tell the Haxe compiler to use an include 
 
 The generated C++ should match the same path as the package -> Haxe module, so in this case the header should be located at `mypack/MyClass.h`.
 ```haxe
+@:semantics(variable)
 @:native("::mypack::MyClass_obj")
 @:structAccess
 @:include("mypack/MyClass.h")
 extern class MyClassValue extends MyClass {}
 ```
 
-NOOOW this finally compiles:
+Wow. That's a lot of metadata. But NOOOW this finally compiles:
 ```haxe
 package mypack;
 
