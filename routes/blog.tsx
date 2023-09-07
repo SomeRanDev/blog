@@ -4,6 +4,17 @@ import { Head, NavLink, Link } from "aleph/react";
 import { components } from "../components/Heading.tsx";
 import Comments from "../components/Comments.tsx";
 
+import type { SSROptions } from 'https://deno.land/x/aleph/types.d.ts'
+
+export const ssr: SSROptions = {
+  props: async req => {
+    return {}
+  },
+  paths: async () => {
+    return []
+  }
+}
+
 // Navagation
 const nav = [
   "baselist",
@@ -100,19 +111,18 @@ function genNav(item: any[] | string, index?: number) {
   throw "Impossible";
 }
 
-export const ssr = {
-  props: (req) => {
-    console.log(req);
-    return {
-      $revalidate: 0, // revalidate props after 1 second
-      username: "Test",
-      serverTime: Date.now(),
-    };
-  },
-  paths: () => {
-    return ["/blog"];
-  },
-};
+// export const ssr = {
+//   props: (req) => {
+//     return {
+//       $revalidate: 0, // revalidate props after 1 second
+//       username: "Test",
+//       serverTime: Date.now(),
+//     };
+//   },
+//   paths: () => {
+//     return ["/blog"];
+//   },
+// };
 
 // <Blog />
 export default function Blog(props: PropsWithChildren<any>) {
@@ -122,6 +132,8 @@ export default function Blog(props: PropsWithChildren<any>) {
   const [getLoadedScreen, setLoadedScreen] = useState(false);
   const [next, setNext] = useState(null);
   const [previous, setPrev] = useState(null);
+
+  document.title = "Test2";
 
   useEffect(() => {
     const pathname = document.location.pathname;
