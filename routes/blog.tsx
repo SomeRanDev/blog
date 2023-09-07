@@ -133,11 +133,13 @@ export default function Blog(props: PropsWithChildren<any>) {
   const [next, setNext] = useState(null);
   const [previous, setPrev] = useState(null);
 
-  document.title = "Test2";
+  //document.title = "Test2";
 
   useEffect(() => {
     const pathname = document.location.pathname;
     const index = order.indexOf(pathname);
+
+    document.title = "Test2";
 
     let next = null;
     let previous = null;
