@@ -170,7 +170,9 @@ export default function Blog(props: PropsWithChildren<any>) {
   });
 
   return !getLoadedScreen ? (
-    <></>
+    <>
+      {BlogMeta({ title: "bla", desc: "blablabla" })}
+    </>
   ) : (
     <>
       <div className="docs">
