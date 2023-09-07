@@ -129,18 +129,16 @@ function genNav(item: any[] | string, index?: number) {
 export default function Blog(props: PropsWithChildren<any>) {
   //const hClass = "hidden"; //window.innerWidth < 1000 ? "hidden" : "";
 
+  console.log(props);
+
   const [hClass, setHClass] = useState("");
   const [getLoadedScreen, setLoadedScreen] = useState(false);
   const [next, setNext] = useState(null);
   const [previous, setPrev] = useState(null);
 
-  //document.title = "Test2";
-
   useEffect(() => {
     const pathname = document.location.pathname;
     const index = order.indexOf(pathname);
-
-    document.title = "Test2";
 
     let next = null;
     let previous = null;
@@ -172,7 +170,9 @@ export default function Blog(props: PropsWithChildren<any>) {
 
   return !getLoadedScreen ? (
     <>
-      {BlogMeta({ title: "bla", desc: "blablabla" })}
+      <div style={{ visibility: "hidden" }}>
+        <MDXProvider components={components}>{props.children}</MDXProvider>
+      </div>
     </>
   ) : (
     <>
