@@ -224,6 +224,28 @@ Note with the code above, the `Position` type has a default constructor AND a st
 
 As a result, it is a good practice to always provide a default constructor for your `@:nativeGen` class!
 
+If you still really want your constructor to have arguments, you can use `@:headerClassCode` to add the default constructor. Just make sure to properly initialize the class variables if possible.
+```haxe
+@:nativeGen
+@:headerClassCode("Position(): x(0), y(0) {}")
+class Position {
+  public var x: Int = 0;
+  public var y: Int = 0;
+  public function new(_x: Int, _y: Int) { x = _x; y = _y; }
+}
+```
+
+We can shorten our `Position` class even more if we use `@:structInit`. Just note that `@:structInit` will only add an argument constructor, so you'll still need to include a default one using `@:headerClassCode`.
+```haxe
+@:nativeGen
+@:structInit
+@:headerClassCode("Position(): x(0), y(0) {}")
+class Position {
+  public var x: Int = 0;
+  public var y: Int = 0;
+}
+```
+
 # Storing a @:nativeGen Type
 
 If you want to store your `@:nativeGen` value type anywhere outside of a function, you'll need to wrap if in `cpp.Struct` if it's being stored in a normal Haxe type. This includes:
