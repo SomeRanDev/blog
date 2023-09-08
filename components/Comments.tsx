@@ -16,7 +16,7 @@ export default function Comments() {
     Object.entries({
       src: "https://utteranc.es/client.js",
       repo: "RobertBorghese/blog",
-      "issue-term": "title",
+      "issue-term": "url",
       label: "discussion",
       theme: "github-light",
       crossorigin: "anonymous",
