@@ -45,11 +45,10 @@ beautifully chained Array/Iterable extension functions.`]}),`
 `,s(e.li,{children:"At the time of writing this, Haxe 4.3 is the latest release and what this article is using. While unlikely, future releases may generate C++ differently, so keep that in mind future people reading this!"}),`
 `]}),`
 `,s(e.p,{children:s(e.em,{children:"P.S: Shoutout to the guy that linked you this page in response to your question. \u2764\uFE0F"})}),`
-`,s(e.p,{children:"Special thanks for the suggestions made by:"}),`
-`,a(e.ul,{children:[`
+`,a("div",{style:"background-color: blue;",children:[s(e.p,{children:"Special thanks for the suggestions made by:"}),a(e.ul,{children:[`
 `,a(e.li,{children:[s(e.a,{href:"https://github.com/Aidan63",children:"Aidan"})," for ",s(e.code,{children:"@:semantics"})," metadata."]}),`
 `,a(e.li,{children:[s(e.a,{href:"https://github.com/jeremyfa",children:"jeremyfa"})," for avoiding iterators, interfaces, and ",s(e.a,{href:"https://github.com/jcward/hxtelemetry",children:"hxScout"}),"."]}),`
-`]}),`
+`]})]}),`
 `,s(e.h1,{id:"table-of-contents",children:"Table of Contents"}),`
 `,s(e.h3,{id:"intro",children:"Intro"}),`
 `,a(e.ul,{children:[`
