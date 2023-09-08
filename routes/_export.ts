@@ -3,37 +3,37 @@
 // deno-fmt-ignore-file
 // deno-lint-ignore-file
 // @ts-nocheck
-var E=Object.defineProperty;var o=(r,e)=>{for(var f in e)E(r,f,{get:e[f],enumerable:!0})};import*as Me from"./_404.tsx";import*as Se from"./_app.tsx";import*as Te from"./blog.tsx";import*as He from"./index.tsx";var m={};o(m,{default:()=>Y,desc:()=>x,title:()=>k});import{Fragment as U,jsx as t,jsxs as i}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as w}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as q}from"aleph/react";import $ from"~/components/BlogMeta.tsx";var k="About",x="This is a blog documenting the progress of my various projects. The large majority of which involve the Haxe programming language.";function b(r){let e=Object.assign({h1:"h1",p:"p",a:"a",blockquote:"blockquote"},w(),r.components);return i(U,{children:[t(q,{children:$({title:k,desc:x})}),`
+var X=Object.defineProperty;var o=(r,e)=>{for(var f in e)X(r,f,{get:e[f],enumerable:!0})};import*as Me from"./_404.tsx";import*as Te from"./_app.tsx";import*as Se from"./blog.tsx";import*as He from"./index.tsx";var m={};o(m,{default:()=>Y,desc:()=>k,title:()=>x});import{Fragment as $,jsx as t,jsxs as i}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as w}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as U}from"aleph/react";import q from"~/components/BlogMeta.tsx";var x="About",k="This is a blog documenting the progress of my various projects. The large majority of which involve the Haxe programming language.";function b(r){let e=Object.assign({h1:"h1",p:"p",a:"a",blockquote:"blockquote"},w(),r.components);return i($,{children:[t(U,{children:q({title:x,desc:k})}),`
 `,t(e.h1,{id:"about",children:"About"}),`
-`,i(e.p,{children:[`This is a blog documenting the progress of my various projects.\r
-The large majority of which involve the `,t(e.a,{href:"https://haxe.org",children:"Haxe"}),`\r
+`,i(e.p,{children:[`This is a blog documenting the progress of my various projects.
+The large majority of which involve the `,t(e.a,{href:"https://haxe.org",children:"Haxe"}),`
 programming language.`]}),`
-`,i(e.p,{children:[`My ultimate goal is to make a living off of game development; most\r
-of my projects are intended to help me achieve that goal. For example,\r
-my most popular open source project, `,t(e.a,{href:"https://github.com/RobertBorghese/reflaxe",children:"Reflaxe"}),`,\r
-was created to help me develop a powerful Haxe -> C++ transpiler\r
+`,i(e.p,{children:[`My ultimate goal is to make a living off of game development; most
+of my projects are intended to help me achieve that goal. For example,
+my most popular open source project, `,t(e.a,{href:"https://github.com/RobertBorghese/reflaxe",children:"Reflaxe"}),`,
+was created to help me develop a powerful Haxe -> C++ transpiler
 that fits with my needs.`]}),`
 `,i(e.blockquote,{children:[`
-`,i(e.p,{children:[t(e.a,{href:"https://github.com/RobertBorghese/reflaxe",children:"Reflaxe"}),` is a Haxe framework\r
+`,i(e.p,{children:[t(e.a,{href:"https://github.com/RobertBorghese/reflaxe",children:"Reflaxe"}),` is a Haxe framework
 for creating compilation targets using macros.`]}),`
 `]}),`
-`,i(e.p,{children:["Another project of mine is ",t(e.a,{href:"https://github.com/RobertBorghese/Haxe-UnrealEngine5",children:"Haxe-UnrealEngine5"}),`,\r
-an experimental attempt at allowing Haxe to be used in Unreal Engine 5\r
-using the aforementioned `,t(e.a,{href:"https://github.com/RobertBorghese/reflaxe.CPP",children:"Reflaxe/C++"}),`\r
+`,i(e.p,{children:["Another project of mine is ",t(e.a,{href:"https://github.com/RobertBorghese/Haxe-UnrealEngine5",children:"Haxe-UnrealEngine5"}),`,
+an experimental attempt at allowing Haxe to be used in Unreal Engine 5
+using the aforementioned `,t(e.a,{href:"https://github.com/RobertBorghese/reflaxe.CPP",children:"Reflaxe/C++"}),`
 project.`]}),`
-`,i(e.p,{children:[`Finally, I also have a passion for language design, and frequently\r
-try and find creative ways to modify or improve the code I write\r
-through creative macros or language modifications. I ultimately\r
-wish to develop my own programming language, and have made\r
-`,t(e.a,{href:"https://github.com/RobertBorghese/tastyfresh",children:"many"}),`\r
-`,t(e.a,{href:"https://github.com/RobertBorghese/gimmick",children:"attempts"}),`\r
+`,i(e.p,{children:[`Finally, I also have a passion for language design, and frequently
+try and find creative ways to modify or improve the code I write
+through creative macros or language modifications. I ultimately
+wish to develop my own programming language, and have made
+`,t(e.a,{href:"https://github.com/RobertBorghese/tastyfresh",children:"many"}),`
+`,t(e.a,{href:"https://github.com/RobertBorghese/gimmick",children:"attempts"}),`
 `,t(e.a,{href:"https://github.com/RobertBorghese/laxe",children:"before"}),"."]}),`
 `,i(e.blockquote,{children:[`
-`,i(e.p,{children:["Check out my ",t(e.a,{href:"https://github.com/RobertBorghese/Haxe-MagicArrayTools",children:"Magic Array Tools"}),`,\r
-a Haxe library that helps generate hyper optimized code from\r
+`,i(e.p,{children:["Check out my ",t(e.a,{href:"https://github.com/RobertBorghese/Haxe-MagicArrayTools",children:"Magic Array Tools"}),`,
+a Haxe library that helps generate hyper optimized code from
 beautifully chained Array/Iterable extension functions.`]}),`
 `]}),`
-`,t(e.p,{children:"Thanks for reading this! Hope you enjoy your stay."})]})}function z(r={}){let{wrapper:e}=Object.assign({},w(),r.components);return e?t(e,Object.assign({},r,{children:t(b,r)})):b(r)}var Y=z;var u={};o(u,{default:()=>se,desc:()=>M,title:()=>_});import{Fragment as J,jsx as s,jsxs as a}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as C}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as K}from"aleph/react";import Q from"~/components/BlogMeta.tsx";import Z from"~/components/BlogSubtext.tsx";var _="Haxe/C++ | Tips for Avoiding GC",M="A breakdown of how to bypass Haxe/C++'s garbage collector and instead use value-types.";function v(r){let e=Object.assign({h1:"h1",p:"p",ul:"ul",li:"li",em:"em",h3:"h3",a:"a",code:"code",h2:"h2",pre:"pre",span:"span"},C(),r.components);return a(J,{children:[s(K,{children:Q({title:_,desc:M})}),`
+`,t(e.p,{children:"Thanks for reading this! Hope you enjoy your stay."})]})}function z(r={}){let{wrapper:e}=Object.assign({},w(),r.components);return e?t(e,Object.assign({},r,{children:t(b,r)})):b(r)}var Y=z;var u={};o(u,{default:()=>se,desc:()=>M,title:()=>C});import{Fragment as J,jsx as s,jsxs as a}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as _}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as K}from"aleph/react";import Q from"~/components/BlogMeta.tsx";import Z from"~/components/BlogSubtext.tsx";var C="Haxe/C++ | Tips for Avoiding GC",M="A breakdown of how to bypass Haxe/C++'s garbage collector and instead use value-types.";function v(r){let e=Object.assign({h1:"h1",p:"p",ul:"ul",li:"li",em:"em",a:"a",code:"code",h3:"h3",h2:"h2",pre:"pre",span:"span"},_(),r.components);return a(J,{children:[s(K,{children:Q({title:C,desc:M})}),`
 `,s(e.h1,{id:"haxec--tips-for-avoiding-gc",children:"Haxe/C++ | Tips for Avoiding GC"}),`
 `,s(Z,{githubLinks:[{link:"https://github.com/HaxeFoundation/haxe",url:"https://api.github.com/repos/HaxeFoundation/haxe",badgeUrl:"https://github.com/HaxeFoundation/haxe/actions/workflows/main.yml/badge.svg"},{link:"https://github.com/HaxeFoundation/hxcpp",url:"https://api.github.com/repos/HaxeFoundation/hxcpp",badgeUrl:"https://github.com/HaxeFoundation/hxcpp/actions/workflows/main.yml/badge.svg"}],date:"September 5, 2023",author:"Robert Borghese"}),`
 `,s(e.h1,{id:"haxec-garbage-collector",children:"Haxe/C++ Garbage Collector"}),`
@@ -45,10 +45,16 @@ beautifully chained Array/Iterable extension functions.`]}),`
 `,s(e.li,{children:"At the time of writing this, Haxe 4.3 is the latest release and what this article is using. While unlikely, future releases may generate C++ differently, so keep that in mind future people reading this!"}),`
 `]}),`
 `,s(e.p,{children:s(e.em,{children:"P.S: Shoutout to the guy that linked you this page in response to your question. \u2764\uFE0F"})}),`
+`,s(e.p,{children:"Special thanks for the suggestions made by:"}),`
+`,a(e.ul,{children:[`
+`,a(e.li,{children:[s(e.a,{href:"https://github.com/Aidan63",children:"Aidan"})," for ",s(e.code,{children:"@:semantics"})," metadata."]}),`
+`,a(e.li,{children:[s(e.a,{href:"https://github.com/jeremyfa",children:"jeremyfa"})," for avoiding iterators, interfaces, and ",s(e.a,{href:"https://github.com/jcward/hxtelemetry",children:"hxScout"}),"."]}),`
+`]}),`
 `,s(e.h1,{id:"table-of-contents",children:"Table of Contents"}),`
 `,s(e.h3,{id:"intro",children:"Intro"}),`
 `,a(e.ul,{children:[`
 `,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#examples",children:"Examples"})}),`
+`,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#profilers",children:"Profilers"})}),`
 `,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#your-tools",children:"Your Tools"})}),`
 `,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#whats-a-value-type",children:"What's a Value-Type?"})}),`
 `]}),`
@@ -67,6 +73,11 @@ beautifully chained Array/Iterable extension functions.`]}),`
 `,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#custom-value-type-constructor",children:"Custom Value-Type Constructor"})}),`
 `,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#accessing-gc-object-as-value-type",children:"Accessing GC Object as Value-Type"})}),`
 `]}),`
+`,s(e.h3,{id:"other-recommendations",children:"Other Recommendations"}),`
+`,a(e.ul,{children:[`
+`,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#dodge-those-iterators",children:"Dodge Those Iterators!"})}),`
+`,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#dodge-those-interfaces",children:"Dodge Those Interfaces!"})}),`
+`]}),`
 `,s(e.h3,{id:"outro",children:"Outro"}),`
 `,a(e.ul,{children:[`
 `,s(e.li,{children:s(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips#the-end",children:"The End?"})}),`
@@ -75,6 +86,9 @@ beautifully chained Array/Iterable extension functions.`]}),`
 `,s(e.p,{children:"Here are some examples of Haxe/C++ libraries that use some GC-avoidance tricks! (Feel free to suggest more and I'll add them)"}),`
 `,s(e.h3,{id:"raylib-haxe",children:s(e.a,{href:"https://github.com/haxeui/raylib-haxe",children:"Raylib Haxe"})}),`
 `,a(e.p,{children:["This ",s(e.a,{href:"https://github.com/haxeui/raylib-haxe/blob/main/RayLib.hx",children:"library's externs"})," for the basic Raylib data-structures like ",s(e.code,{children:"RayVector2"})," are stack-allocated externs."]}),`
+`,s(e.h1,{id:"profilers",children:"Profilers"}),`
+`,s(e.p,{children:"Here are some projects you can use to profile your Haxe/C++ GC usage."}),`
+`,s(e.h3,{id:"hxtelemetry--hxscout",children:s(e.a,{href:"https://github.com/jcward/hxtelemetry",children:"hxTelemetry + hxScout"})}),`
 `,s(e.h1,{id:"your-tools",children:"Your Tools"}),`
 `,s(e.p,{children:"First, let's become familiar with the tools we'll be using. These bypass Haxe's typing system, but if you play your code right there isn't any C++ feature you can't use, including memory management!"}),`
 `,s(e.h2,{id:"native-metadata",children:"Native Metadata"}),`
@@ -438,16 +452,114 @@ copyValue(objValue); `,s(e.span,{className:"hljs-comment",children:"// compiles 
 `,s(e.span,{className:"hljs-keyword",children:"final"})," obj = ",s(e.span,{className:"hljs-keyword",children:"new"})," ",s(e.span,{className:"hljs-type",children:"MyClass"}),"(",s(e.span,{className:"hljs-number",children:"123"}),`);\r
 `,s(e.span,{className:"hljs-keyword",children:"final"})," objValue: ",s(e.span,{className:"hljs-type",children:"MyClassValue "}),`= obj.asValue();
 `]})}),`
+`,s(e.h1,{id:"dodge-those-iterators",children:"Dodge Those Iterators!"}),`
+`,a(e.p,{children:["Now we all know that creating tons of unnecessary objects is not the best strategy with garbage collection, and we also know you should avoid anonymous strutures and ",s(e.code,{children:"Dynamic"})," types when using Haxe/C++. So let's talk about the worse Haxe/C++ feature that uses both of those things: ",s(e.em,{children:"Iterators"}),"."]}),`
+`,a(e.p,{children:["Iterating through an ",s(e.code,{children:"Array"})," or ",s(e.code,{children:"Iterable"})," with a for-loop seems innocent enough:"]}),`
+`,s(e.pre,{children:a(e.code,{className:"hljs language-haxe",children:[s(e.span,{className:"hljs-keyword",children:"final"})," arr = [",s(e.span,{className:"hljs-number",children:"1"}),", ",s(e.span,{className:"hljs-number",children:"2"}),", ",s(e.span,{className:"hljs-number",children:"3"}),`];\r
+`,s(e.span,{className:"hljs-keyword",children:"for"}),"(number ",s(e.span,{className:"hljs-keyword",children:"in"}),` arr) {\r
+  `,s(e.span,{className:"hljs-comment",children:"// do something with number..."}),`\r
+}
+`]})}),`
+`,s(e.p,{children:"However, this code has a secret cost. The Haxe compiler quietly converts your simple for-loop into this:"}),`
+`,s(e.pre,{children:a(e.code,{className:"hljs language-haxe",children:[s(e.span,{className:"hljs-keyword",children:"final"}),` iterator = arr.iterator();\r
+`,s(e.span,{className:"hljs-keyword",children:"while"}),`(iterator.hasNext()) {\r
+  `,s(e.span,{className:"hljs-keyword",children:"final"}),` number = iterator.next();\r
+  `,s(e.span,{className:"hljs-comment",children:"// do something with number..."}),`\r
+}
+`]})}),`
+`,s(e.p,{children:"Whenever an object is iterated over, it generates a iterator object that the GC has to clean up. In moderation it's fine, but you probably don't want to have a ton of these in your game loop."}),`
+`,a(e.p,{children:["Instead, you should try and use ",s(e.code,{children:"IntIterator"})," instead:"]}),`
+`,s(e.pre,{children:a(e.code,{className:"hljs language-haxe",children:[s(e.span,{className:"hljs-keyword",children:"for"}),"(i ",s(e.span,{className:"hljs-keyword",children:"in"})," ",s(e.span,{className:"hljs-number",children:"0."}),`..arr.length) {\r
+  `,s(e.span,{className:"hljs-keyword",children:"final"}),` number = arr[i];\r
+  `,s(e.span,{className:"hljs-comment",children:"// do something with number..."}),`\r
+}
+`]})}),`
+`,a(e.p,{children:["Technically ",s(e.code,{children:"0...arr.length"})," is generating an ",s(e.code,{children:"IntIterator"}),", but the Haxe compiler optimizes it into an iterator-free while loop like this:"]}),`
+`,s(e.pre,{children:a(e.code,{className:"hljs language-haxe",children:[s(e.span,{className:"hljs-keyword",children:"var"})," i = ",s(e.span,{className:"hljs-number",children:"0"}),`;\r
+`,s(e.span,{className:"hljs-keyword",children:"final"}),` len = arr.length;\r
+`,s(e.span,{className:"hljs-keyword",children:"while"}),`(i < len) {\r
+  `,s(e.span,{className:"hljs-keyword",children:"final"}),` number = arr[i];\r
+  `,s(e.span,{className:"hljs-comment",children:"// do something with number..."}),`\r
+  i++;\r
+}
+`]})}),`
+`,s(e.p,{children:"If you don't trust the Haxe compiler, you could just write the while-loop yourself."}),`
+`,s(e.p,{children:'"Ahhh, but this is so ugly and tedious!"'}),`
+`,a(e.p,{children:["No problem, why not use one of Haxe's greatest superpowers? ",s(e.a,{href:"https://haxe.org/manual/macro-limitations-static-extension.html",children:"Macro static extensions"}),":"]}),`
+`,s(e.pre,{children:a(e.code,{className:"hljs language-haxe",children:[s(e.span,{className:"hljs-comment",children:"// FastIterate.hx"}),`\r
+`,s(e.span,{className:"hljs-keyword",children:"import"})," haxe.",s(e.span,{className:"hljs-keyword",children:"macro"}),`.Expr;\r
+\r
+`,s(e.span,{className:"hljs-keyword",children:"macro"})," ",a(e.span,{className:"hljs-title function_",children:[s(e.span,{className:"hljs-keyword",children:"function"})," ",s(e.span,{className:"hljs-title",children:"fastForEach"})]}),"(iterableExpr: ",s(e.span,{className:"hljs-type",children:"Expr"}),", callbackExpr: ",s(e.span,{className:"hljs-type",children:"Expr"}),`) {\r
+  `,s(e.span,{className:"hljs-comment",children:"// Extract variable names and expression from `callbackExpr`"}),`\r
+  `,s(e.span,{className:"hljs-keyword",children:"var"})," loopExpr = ",s(e.span,{className:"hljs-literal",children:"null"}),`;\r
+  `,s(e.span,{className:"hljs-keyword",children:"var"})," objectName = ",s(e.span,{className:"hljs-string",children:'""'}),`;\r
+  `,s(e.span,{className:"hljs-keyword",children:"var"})," indexName = ",s(e.span,{className:"hljs-string",children:'""'}),`;\r
+\r
+  `,s(e.span,{className:"hljs-comment",children:"// Check that `callbackExpr` is a two argument function"}),`\r
+  `,s(e.span,{className:"hljs-keyword",children:"switch"}),`(callbackExpr.expr) {\r
+    `,s(e.span,{className:"hljs-keyword",children:"case"})," EFunction(kind, { args: ",s(e.span,{className:"hljs-type",children:"args"}),", expr: ",s(e.span,{className:"hljs-type",children:"expr "}),"}) ",s(e.span,{className:"hljs-keyword",children:"if"}),"(expr != ",s(e.span,{className:"hljs-literal",children:"null"})," && args.length == ",s(e.span,{className:"hljs-number",children:"2"}),"): ",s(e.span,{className:"hljs-type"}),`{\r
+      loopExpr = `,s(e.span,{className:"hljs-keyword",children:"if"}),`(kind == FArrow) {\r
+        `,s(e.span,{className:"hljs-comment",children:'// Make sure automatic "return" is removed from lambda'}),`\r
+        haxe.`,s(e.span,{className:"hljs-keyword",children:"macro"}),".ExprTools.map(expr, e -> ",s(e.span,{className:"hljs-keyword",children:"switch"}),`(e.expr) {\r
+          `,s(e.span,{className:"hljs-keyword",children:"case"})," EReturn(returnedExpr): ",s(e.span,{className:"hljs-type",children:"returnedExpr"}),`;\r
+          `,s(e.span,{className:"hljs-keyword",children:"case"})," ",s(e.span,{className:"hljs-literal",children:"_"}),": ",s(e.span,{className:"hljs-type",children:"e"}),`;\r
+        });\r
+      } `,s(e.span,{className:"hljs-keyword",children:"else"}),` {\r
+        expr;\r
+      }\r
+      objectName = args[`,s(e.span,{className:"hljs-number",children:"0"}),`].name;\r
+      indexName = args[`,s(e.span,{className:"hljs-number",children:"1"}),`].name;\r
+    }\r
+    `,s(e.span,{className:"hljs-keyword",children:"case"})," ",s(e.span,{className:"hljs-literal",children:"_"}),": ",s(e.span,{className:"hljs-type",children:"throw "}),'"`callbackExpr` must be a ',a(e.span,{className:"hljs-title function_",children:[s(e.span,{className:"hljs-keyword",children:"function"})," ",s(e.span,{className:"hljs-title",children:"with"})," ",s(e.span,{className:"hljs-title",children:"two"})," ",s(e.span,{className:"hljs-title",children:"arguments"}),`!";\r
+  }\r
+\r
+  // `,s(e.span,{className:"hljs-title",children:"Build"})," ",s(e.span,{className:"hljs-title",children:"the"})," ",s(e.span,{className:"hljs-title",children:"expression"})," ",s(e.span,{className:"hljs-title",children:"this"})," ",s(e.span,{className:"hljs-title",children:"macro"})," ",s(e.span,{className:"hljs-title",children:"call"})," ",s(e.span,{className:"hljs-title",children:"changes"})," ",s(e.span,{className:"hljs-title",children:"into"}),`:\r
+  `,s(e.span,{className:"hljs-title",children:"return"})," ",s(e.span,{className:"hljs-title",children:"macro"}),` {\r
+    `,s(e.span,{className:"hljs-title",children:"final"})," ",s(e.span,{className:"hljs-title",children:"iterable"})," = $",s(e.span,{className:"hljs-title",children:"iterableExpr"}),`;\r
+    `,s(e.span,{className:"hljs-title",children:"final"})," ",s(e.span,{className:"hljs-title",children:"len"})," = ",s(e.span,{className:"hljs-title",children:"iterable"}),".",s(e.span,{className:"hljs-title",children:"length"}),`;\r
+    `,s(e.span,{className:"hljs-title",children:"var"})," $",s(e.span,{className:"hljs-title",children:"indexName"}),` = 0;\r
+    `,s(e.span,{className:"hljs-title",children:"while"})]}),"(",s(e.span,{className:"hljs-variable",children:"$i"}),`{indexName} < len) {\r
+      `,s(e.span,{className:"hljs-keyword",children:"final"})," ",s(e.span,{className:"hljs-variable",children:"$objectName"})," = iterable[",s(e.span,{className:"hljs-variable",children:"$i"}),`{indexName}];\r
+      `,s(e.span,{className:"hljs-variable",children:"$loopExpr"}),`;\r
+      `,s(e.span,{className:"hljs-variable",children:"$i"}),`{indexName}++;\r
+    }\r
+  }\r
+}\r
+\r
+`,s(e.span,{className:"hljs-comment",children:"// Main.hx"}),`\r
+`,s(e.span,{className:"hljs-keyword",children:"using"}),` FastIterate;\r
+\r
+`,a(e.span,{className:"hljs-title function_",children:[s(e.span,{className:"hljs-keyword",children:"function"})," ",s(e.span,{className:"hljs-title",children:"main"})]}),`() {\r
+  `,s(e.span,{className:"hljs-keyword",children:"final"})," arr = [",s(e.span,{className:"hljs-number",children:"1"}),", ",s(e.span,{className:"hljs-number",children:"2"}),", ",s(e.span,{className:"hljs-number",children:"3"}),`];\r
+  arr.fastForEach((number, index) -> {\r
+    `,s(e.span,{className:"hljs-comment",children:"// do something with number..."}),`\r
+  });\r
+}
+`]})}),`
+`,a(e.p,{children:["The ",s(e.code,{children:"arr.fastForEach"})," call is converted to this code at compile-time!"]}),`
+`,s(e.pre,{children:a(e.code,{className:"hljs language-haxe",children:[s(e.span,{className:"hljs-keyword",children:"final"}),` iterable = arr;\r
+`,s(e.span,{className:"hljs-keyword",children:"final"}),` len = iterable.length;\r
+`,s(e.span,{className:"hljs-keyword",children:"var"})," index = ",s(e.span,{className:"hljs-number",children:"0"}),`;\r
+`,s(e.span,{className:"hljs-keyword",children:"while"}),`(index < len) {\r
+  `,s(e.span,{className:"hljs-keyword",children:"final"}),` number = iterable[index];\r
+  `,s(e.span,{className:"hljs-comment",children:"// do something with number..."}),`\r
+  index++;\r
+}
+`]})}),`
+`,a(e.p,{children:["Feel free to copy the ",s(e.code,{children:"fastForEach"})," function and use it for yourself. No attribution necessary! Just make sure to place it in separate module since it's a macro function."]}),`
+`,s(e.h1,{id:"dodge-those-interfaces",children:"Dodge Those Interfaces!"}),`
+`,a(e.p,{children:["Haxe/C++ interfaces are not converted to normal C++; instead they heavily rely upon the ",s(e.code,{children:"Dynamic"})," type system. As a result, they can cause unintentional performance cost and GC allocation."]}),`
+`,s(e.p,{children:"Avoid them if you can!"}),`
 `,s(e.h1,{id:"the-end",children:"The End?"}),`
 `,a(e.p,{children:["This page is a work in progress! Want to suggest additional material? Did I make a mistake? Open an issue on this blog's ",s(e.a,{href:"https://github.com/RobertBorghese/blog",children:"Github page"})," or leave a comment below!"]}),`
-`,s(e.p,{children:"Thanks for reading!"})]})}function ee(r={}){let{wrapper:e}=Object.assign({},C(),r.components);return e?s(e,Object.assign({},r,{children:s(v,r)})):v(r)}var se=ee;var j={};o(j,{default:()=>te,desc:()=>I,title:()=>H});import{Fragment as ne,jsx as d,jsxs as ae}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as T}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as le}from"aleph/react";import re from"~/components/BlogMeta.tsx";import"~/components/GithubButton.tsx";var H="Haxe Articles",I="Here's a list of one-shot blogs/pages/tutorials regarding Haxe.";function S(r){let e=Object.assign({h1:"h1",p:"p",a:"a"},T(),r.components);return ae(ne,{children:[d(le,{children:re({title:H,desc:I})}),`
+`,s(e.p,{children:"Thanks for reading!"})]})}function ee(r={}){let{wrapper:e}=Object.assign({},_(),r.components);return e?s(e,Object.assign({},r,{children:s(v,r)})):v(r)}var se=ee;var j={};o(j,{default:()=>te,desc:()=>I,title:()=>H});import{Fragment as ne,jsx as d,jsxs as ae}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as S}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as le}from"aleph/react";import re from"~/components/BlogMeta.tsx";import"~/components/GithubButton.tsx";var H="Haxe Articles",I="Here's a list of one-shot blogs/pages/tutorials regarding Haxe.";function T(r){let e=Object.assign({h1:"h1",p:"p",a:"a"},S(),r.components);return ae(ne,{children:[d(le,{children:re({title:H,desc:I})}),`
 `,d(e.h1,{id:"haxe-articles",children:"Haxe Articles"}),`
-`,d(e.p,{children:d(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips",children:"Haxe/C++ | Tips for Avoiding GC"})})]})}function ce(r={}){let{wrapper:e}=Object.assign({},T(),r.components);return e?d(e,Object.assign({},r,{children:d(S,r)})):S(r)}var te=ce;var y={};o(y,{default:()=>ue,desc:()=>R,title:()=>A});import{Fragment as ie,jsx as h,jsxs as he}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as P}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as oe}from"aleph/react";import de from"~/components/BlogMeta.tsx";import pe from"~/components/GithubButton.tsx";var A="About Reflaxe",R="Reflaxe is a Haxe framework for creating compilation targets using macros.";function G(r){let e=Object.assign({h1:"h1",p:"p"},P(),r.components);return he(ie,{children:[h(oe,{children:de({title:A,desc:R})}),`
+`,d(e.p,{children:d(e.a,{href:"/blog/haxe/hxcpp_no_gc_tips",children:"Haxe/C++ | Tips for Avoiding GC"})})]})}function ce(r={}){let{wrapper:e}=Object.assign({},S(),r.components);return e?d(e,Object.assign({},r,{children:d(T,r)})):T(r)}var te=ce;var y={};o(y,{default:()=>ue,desc:()=>D,title:()=>P});import{Fragment as ie,jsx as h,jsxs as he}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as A}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as oe}from"aleph/react";import de from"~/components/BlogMeta.tsx";import pe from"~/components/GithubButton.tsx";var P="About Reflaxe",D="Reflaxe is a Haxe framework for creating compilation targets using macros.";function G(r){let e=Object.assign({h1:"h1",p:"p"},A(),r.components);return he(ie,{children:[h(oe,{children:de({title:P,desc:D})}),`
 `,h(e.h1,{id:"reflaxe",children:"Reflaxe"}),`
 `,h(e.p,{children:"Reflaxe is a Haxe framework for creating compilation targets using macros."}),`
 `,h("hr",{}),`
 `,h(e.p,{children:"Check out more information here:"}),`
-`,h(pe,{link:"https://github.com/RobertBorghese/reflaxe",url:"https://api.github.com/repos/RobertBorghese/reflaxe",badgeUrl:"https://github.com/RobertBorghese/reflaxe/actions/workflows/test.yml/badge.svg"})]})}function me(r={}){let{wrapper:e}=Object.assign({},P(),r.components);return e?h(e,Object.assign({},r,{children:h(G,r)})):G(r)}var ue=me;var g={};o(g,{default:()=>be,desc:()=>V,title:()=>F});import{Fragment as je,jsx as n,jsxs as l}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as O}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as ye}from"aleph/react";import ge from"~/components/BlogMeta.tsx";import Ne from"~/components/BlogSubtext.tsx";var F="Reflaxe/C++ Devlog 1 - CallStack",V="A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler.";function D(r){let e=Object.assign({h1:"h1",h2:"h2",p:"p",code:"code",pre:"pre",span:"span",a:"a",em:"em",blockquote:"blockquote"},O(),r.components);return l(je,{children:[n(ye,{children:ge({title:F,desc:V})}),`
+`,h(pe,{link:"https://github.com/RobertBorghese/reflaxe",url:"https://api.github.com/repos/RobertBorghese/reflaxe",badgeUrl:"https://github.com/RobertBorghese/reflaxe/actions/workflows/test.yml/badge.svg"})]})}function me(r={}){let{wrapper:e}=Object.assign({},A(),r.components);return e?h(e,Object.assign({},r,{children:h(G,r)})):G(r)}var ue=me;var g={};o(g,{default:()=>be,desc:()=>E,title:()=>O});import{Fragment as je,jsx as n,jsxs as l}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as F}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as ye}from"aleph/react";import ge from"~/components/BlogMeta.tsx";import Ne from"~/components/BlogSubtext.tsx";var O="Reflaxe/C++ Devlog 1 - CallStack",E="A breakdown of the not-so-tedious process of making a call stack for my Haxe to C++ transpiler.";function R(r){let e=Object.assign({h1:"h1",h2:"h2",p:"p",code:"code",pre:"pre",span:"span",a:"a",em:"em",blockquote:"blockquote"},F(),r.components);return l(je,{children:[n(ye,{children:ge({title:O,desc:E})}),`
 `,n(e.h1,{id:"reflaxec-devlog-1---callstack",children:"Reflaxe/C++ Devlog #1 - CallStack"}),`
 `,n(Ne,{githubLinks:[{link:"https://github.com/RobertBorghese/reflaxe.CPP",url:"https://api.github.com/repos/RobertBorghese/reflaxe.CPP",badgeUrl:"https://github.com/RobertBorghese/reflaxe.CPP/actions/workflows/main.yml/badge.svg"}],date:"May 15, 2023",author:"Robert Borghese"}),`
 `,n(e.h2,{id:"intro",children:"Intro"}),`
@@ -639,24 +751,24 @@ advertise Reflaxe/C++ as the prettiest C++ output in all the land!`}),`
 about it. In the future, I'll need to keep separate call stacks for each\r
 thread. But threads have not been implemented yet, so that's a problem\r
 for future me!`}),`
-`,n(e.p,{children:"Anyway, that's about it for this log. May you visit again!"})]})}function fe(r={}){let{wrapper:e}=Object.assign({},O(),r.components);return e?n(e,Object.assign({},r,{children:n(D,r)})):D(r)}var be=fe;var N={};o(N,{default:()=>_e,desc:()=>X,title:()=>W});import{Fragment as we,jsx as c,jsxs as p}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as L}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as ke}from"aleph/react";import xe from"~/components/BlogMeta.tsx";import ve from"~/components/GithubButton.tsx";var W="About Reflaxe/C++",X="Reflaxe/C++ is an alternative C++ target for Haxe that generates dependent-less, GC-less C++17 code.";function B(r){let e=Object.assign({h1:"h1",p:"p",strong:"strong",pre:"pre",code:"code",span:"span"},L(),r.components);return p(we,{children:[c(ke,{children:xe({title:W,desc:X})}),`
+`,n(e.p,{children:"Anyway, that's about it for this log. May you visit again!"})]})}function fe(r={}){let{wrapper:e}=Object.assign({},F(),r.components);return e?n(e,Object.assign({},r,{children:n(R,r)})):R(r)}var be=fe;var N={};o(N,{default:()=>Ce,desc:()=>W,title:()=>L});import{Fragment as we,jsx as c,jsxs as p}from"https://esm.sh/v120/react@18.2.0/jsx-runtime";import{useMDXComponents as B}from"https://esm.sh/v120/@mdx-js/react@2.3.0";import{Head as xe}from"aleph/react";import ke from"~/components/BlogMeta.tsx";import ve from"~/components/GithubButton.tsx";var L="About Reflaxe/C++",W="Reflaxe/C++ is an alternative C++ target for Haxe that generates dependent-less, GC-less C++17 code.";function V(r){let e=Object.assign({h1:"h1",p:"p",strong:"strong",pre:"pre",code:"code",span:"span"},B(),r.components);return p(we,{children:[c(xe,{children:ke({title:L,desc:W})}),`
 `,c(e.h1,{id:"reflaxec",children:"Reflaxe/C++"}),`
 `,c(e.p,{children:"Reflaxe/C++ is an alternative C++ target for Haxe that generates dependent-less, GC-less C++17 code."}),`
 `,c("hr",{}),`
 `,c(e.p,{children:"The goal of this project is simple: create a compilation target for Haxe that generates minimal, human-readable C++ that can be compiled without linking additional libraries and does not rely on any garbage collection system."}),`
 `,c(e.p,{children:c(e.strong,{children:"Haxe Code"})}),`
-`,c(e.pre,{children:p(e.code,{className:"hljs language-haxe",children:[p(e.span,{className:"hljs-title function_",children:[c(e.span,{className:"hljs-keyword",children:"function"})," ",c(e.span,{className:"hljs-title",children:"main"})]}),`() {\r
-  `,c(e.span,{className:"hljs-built_in",children:"trace"}),"(",c(e.span,{className:"hljs-string",children:'"Hello world!"'}),`);\r
+`,c(e.pre,{children:p(e.code,{className:"hljs language-haxe",children:[p(e.span,{className:"hljs-title function_",children:[c(e.span,{className:"hljs-keyword",children:"function"})," ",c(e.span,{className:"hljs-title",children:"main"})]}),`() {
+  `,c(e.span,{className:"hljs-built_in",children:"trace"}),"(",c(e.span,{className:"hljs-string",children:'"Hello world!"'}),`);
 }
 `]})}),`
 `,c(e.p,{children:c(e.strong,{children:"Reflaxe/C++ Output"})}),`
-`,c(e.pre,{children:p(e.code,{className:"hljs language-cpp",children:[p(e.span,{className:"hljs-meta",children:["#",c(e.span,{className:"hljs-keyword",children:"include"})," ",c(e.span,{className:"hljs-string",children:'"Main.h"'})]}),`\r
-\r
-`,p(e.span,{className:"hljs-meta",children:["#",c(e.span,{className:"hljs-keyword",children:"include"})," ",c(e.span,{className:"hljs-string",children:"<iostream>"})]}),`\r
-\r
-`,c(e.span,{className:"hljs-type",children:"void"})," _Main::Main_Fields_::",c(e.span,{className:"hljs-built_in",children:"main"}),`() {\r
-	std::cout << `,c(e.span,{className:"hljs-string",children:'"Main.hx:2: Hello world!"'}),` << std::endl;\r
+`,c(e.pre,{children:p(e.code,{className:"hljs language-cpp",children:[p(e.span,{className:"hljs-meta",children:["#",c(e.span,{className:"hljs-keyword",children:"include"})," ",c(e.span,{className:"hljs-string",children:'"Main.h"'})]}),`
+
+`,p(e.span,{className:"hljs-meta",children:["#",c(e.span,{className:"hljs-keyword",children:"include"})," ",c(e.span,{className:"hljs-string",children:"<iostream>"})]}),`
+
+`,c(e.span,{className:"hljs-type",children:"void"})," _Main::Main_Fields_::",c(e.span,{className:"hljs-built_in",children:"main"}),`() {
+	std::cout << `,c(e.span,{className:"hljs-string",children:'"Main.hx:2: Hello world!"'}),` << std::endl;
 }
 `]})}),`
 `,c(e.p,{children:"Check out more information here:"}),`
-`,c(ve,{link:"https://github.com/RobertBorghese/reflaxe.CPP",url:"https://api.github.com/repos/RobertBorghese/reflaxe.CPP",badgeUrl:"https://github.com/RobertBorghese/reflaxe.CPP/actions/workflows/main.yml/badge.svg"})]})}function Ce(r={}){let{wrapper:e}=Object.assign({},L(),r.components);return e?c(e,Object.assign({},r,{children:c(B,r)})):B(r)}var _e=Ce;var is={"/_404":Me,"/_app":Se,"/blog":Te,"/":He,"/blog/index":m,"/blog/haxe/hxcpp_no_gc_tips":u,"/blog/haxe/index":j,"/blog/reflaxe/index":y,"/blog/reflaxe-cpp/1":g,"/blog/reflaxe-cpp/index":N,depGraph:{"modules":[{"specifier":"./routes\\blog\\index.mdx"},{"specifier":"./routes\\blog\\haxe\\hxcpp_no_gc_tips.mdx"},{"specifier":"./routes\\blog\\haxe\\index.mdx"},{"specifier":"./routes\\blog\\reflaxe\\index.mdx"},{"specifier":"./routes\\blog\\reflaxe-cpp\\1.mdx"},{"specifier":"./routes\\blog\\reflaxe-cpp\\index.mdx"}]}};export{is as default};
+`,c(ve,{link:"https://github.com/RobertBorghese/reflaxe.CPP",url:"https://api.github.com/repos/RobertBorghese/reflaxe.CPP",badgeUrl:"https://github.com/RobertBorghese/reflaxe.CPP/actions/workflows/main.yml/badge.svg"})]})}function _e(r={}){let{wrapper:e}=Object.assign({},B(),r.components);return e?c(e,Object.assign({},r,{children:c(V,r)})):V(r)}var Ce=_e;var is={"/_404":Me,"/_app":Te,"/blog":Se,"/":He,"/blog/index":m,"/blog/haxe/hxcpp_no_gc_tips":u,"/blog/haxe/index":j,"/blog/reflaxe/index":y,"/blog/reflaxe-cpp/1":g,"/blog/reflaxe-cpp/index":N,depGraph:{"modules":[{"specifier":"./routes\\blog\\index.mdx"},{"specifier":"./routes\\blog\\haxe\\hxcpp_no_gc_tips.mdx"},{"specifier":"./routes\\blog\\haxe\\index.mdx"},{"specifier":"./routes\\blog\\reflaxe\\index.mdx"},{"specifier":"./routes\\blog\\reflaxe-cpp\\1.mdx"},{"specifier":"./routes\\blog\\reflaxe-cpp\\index.mdx"}]}};export{is as default};
