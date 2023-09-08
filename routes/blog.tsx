@@ -129,8 +129,6 @@ function genNav(item: any[] | string, index?: number) {
 export default function Blog(props: PropsWithChildren<any>) {
   //const hClass = "hidden"; //window.innerWidth < 1000 ? "hidden" : "";
 
-  console.log(props);
-
   const [hClass, setHClass] = useState("");
   const [getLoadedScreen, setLoadedScreen] = useState(false);
   const [next, setNext] = useState(null);
