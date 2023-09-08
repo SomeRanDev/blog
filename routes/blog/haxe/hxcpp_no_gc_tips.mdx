@@ -69,6 +69,10 @@ Special thanks for the suggestions made by:
 * [Custom Value-Type Constructor](/blog/haxe/hxcpp_no_gc_tips#custom-value-type-constructor)
 * [Accessing GC Object as Value-Type](/blog/haxe/hxcpp_no_gc_tips#accessing-gc-object-as-value-type)
 
+### Other Recommendations
+* [Dodge Those Iterators!](/blog/haxe/hxcpp_no_gc_tips#dodge-those-iterators)
+* [Dodge Those Interfaces!](/blog/haxe/hxcpp_no_gc_tips#dodge-those-interfaces)
+
 ### Outro
 * [The End?](/blog/haxe/hxcpp_no_gc_tips#the-end)
 
@@ -545,6 +549,125 @@ using ValueHelpers;
 final obj = new MyClass(123);
 final objValue: MyClassValue = obj.asValue();
 ```
+
+# Dodge Those Iterators!
+
+Now we all know that creating tons of unnecessary objects is not the best strategy with garbage collection, and we also know you should avoid anonymous strutures and `Dynamic` types when using Haxe/C++. So let's talk about the worse Haxe/C++ feature that uses both of those things: *Iterators*.
+
+Iterating through an `Array` or `Iterable` with a for-loop seems innocent enough:
+```haxe
+final arr = [1, 2, 3];
+for(number in arr) {
+  // do something with number...
+}
+```
+
+However, this code has a secret cost. The Haxe compiler quietly converts your simple for-loop into this:
+```haxe
+final iterator = arr.iterator();
+while(iterator.hasNext()) {
+  final number = iterator.next();
+  // do something with number...
+}
+```
+
+Whenever an object is iterated over, it generates a iterator object that the GC has to clean up. In moderation it's fine, but you probably don't want to have a ton of these in your game loop.
+
+Instead, you should try and use `IntIterator` instead:
+```haxe
+for(i in 0...arr.length) {
+  final number = arr[i];
+  // do something with number...
+}
+```
+
+Technically `0...arr.length` is generating an `IntIterator`, but the Haxe compiler optimizes it into an iterator-free while loop like this:
+```haxe
+var i = 0;
+final len = arr.length;
+while(i < len) {
+  final number = arr[i];
+  // do something with number...
+  i++;
+}
+```
+
+If you don't trust the Haxe compiler, you could just write the while-loop yourself.
+
+"Ahhh, but this is so ugly and tedious!"
+
+No problem, why not use one of Haxe's greatest superpowers? [Macro static extensions](https://haxe.org/manual/macro-limitations-static-extension.html):
+```haxe
+// FastIterate.hx
+import haxe.macro.Expr;
+
+macro function fastForEach(iterableExpr: Expr, callbackExpr: Expr) {
+  // Extract variable names and expression from `callbackExpr`
+  var loopExpr = null;
+  var objectName = "";
+  var indexName = "";
+
+  // Check that `callbackExpr` is a two argument function
+  switch(callbackExpr.expr) {
+    case EFunction(kind, { args: args, expr: expr }) if(expr != null && args.length == 2): {
+      loopExpr = if(kind == FArrow) {
+        // Make sure automatic "return" is removed from lambda
+        haxe.macro.ExprTools.map(expr, e -> switch(e.expr) {
+          case EReturn(returnedExpr): returnedExpr;
+          case _: e;
+        });
+      } else {
+        expr;
+      }
+      objectName = args[0].name;
+      indexName = args[1].name;
+    }
+    case _: throw "`callbackExpr` must be a function with two arguments!";
+  }
+
+  // Build the expression this macro call changes into:
+  return macro {
+    final iterable = $iterableExpr;
+    final len = iterable.length;
+    var $indexName = 0;
+    while($i{indexName} < len) {
+      final $objectName = iterable[$i{indexName}];
+      $loopExpr;
+      $i{indexName}++;
+    }
+  }
+}
+
+// Main.hx
+using FastIterate;
+
+function main() {
+  final arr = [1, 2, 3];
+  arr.fastForEach((number, index) -> {
+    // do something with number...
+  });
+}
+```
+
+The `arr.fastForEach` call is converted to this code at compile-time!
+```haxe
+final iterable = arr;
+final len = iterable.length;
+var index = 0;
+while(index < len) {
+  final number = iterable[index];
+  // do something with number...
+  index++;
+}
+```
+
+Feel free to copy the `fastForEach` function and use it for yourself. No attribution necessary! Just make sure to place it in separate module since it's a macro function.
+
+# Dodge Those Interfaces!
+
+Haxe/C++ interfaces are not converted to normal C++; instead they heavily rely upon the `Dynamic` type system. As a result, they can cause unintentional performance cost and GC allocation.
+
+Avoid them if you can!
 
 # The End?
 
